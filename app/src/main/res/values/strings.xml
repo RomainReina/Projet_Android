@@ -10,4 +10,5 @@
     <string name="error_no_login">Empty login !</string>
     <string name="error_no_password">Empty password !</string>
     <string name="action_settings">Title!</string>
+    <string name="sb">SB</string>
 </resources>

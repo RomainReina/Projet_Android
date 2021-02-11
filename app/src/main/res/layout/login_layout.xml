@@ -6,40 +6,20 @@
     android:layout_height="match_parent"
     android:background="@android:color/darker_gray">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/logo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/twitter" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/loginForm"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="268dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/white_round_corner_background"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/loginButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="24dp"
-            android:background="@drawable/white_round_corners_background"
-            android:text="@string/login"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/passwordEditText" />
 
         <EditText
             android:id="@+id/loginEditText"
@@ -77,10 +57,26 @@
         android:id="@+id/imageView3"
         android:layout_width="306dp"
         android:layout_height="288dp"
+        android:contentDescription="@string/sb"
+        android:scaleX="2"
+        android:scaleY="2"
         app:layout_constraintBottom_toTopOf="@+id/loginForm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/Logo" />
+        app:srcCompat="@mipmap/logo_sb_foreground" />
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="256dp"
+        android:background="@drawable/white_round_corner_background"
+        android:textColor="@color/black"
+        android:hint="@string/login"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.868"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
