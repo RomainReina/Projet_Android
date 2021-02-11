@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Projet_Android</string>
+
+    <string name="logo">Logo SB</string>
+
+    <!-- LOGIN -->
+    <string name="loginHint">Your SB login</string>
+    <string name="passwordHint">Your SB password</string>
+    <string name="login">Sign in</string>
+    <string name="error_no_login">Empty login !</string>
+    <string name="error_no_password">Empty password !</string>
+    <string name="action_settings">Title!</string>
 </resources>
