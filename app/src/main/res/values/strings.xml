@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Projet_Android</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="superbibi">SuperBibi</string>
+    <string name="logo">logo</string>
+    <string name="title">title</string>
+    <string name="iconepodometre">iconePodometre</string>
+    <string name="nombre_de_pas">Nombre de pas :</string>
+    <string name="_5">5</string>
+    <string name="imcicone">IMCIcone</string>
+    <string name="imcgraph">IMCGraph</string>
+    <string name="objectificone">ObjectifIcone</string>
+    <string name="objectifs">Objectifs :</string>
+    <string name="menu">Menu</string>
+    <string name="option_1">Option 1</string>
+    <string name="settings">Settings</string>
 </resources>
