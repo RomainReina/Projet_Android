@@ -17,4 +17,6 @@
     <string name="settings">Settings</string>
     <string name="settingsicone">settingsIcone</string>
     <string name="go_to_dark_theme">Go to dark theme</string>
+    <string name="splashscreenlogo">splashScreenLogo</string>
+    <string name="splashscreentitle">splashScreenTitle</string>
 </resources>

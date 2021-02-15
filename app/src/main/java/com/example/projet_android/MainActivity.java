@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_Design_Light_NoActionBar);              // on cache l'action barre
         setContentView(R.layout.home_page_layout);                  // on charge le layout de la page d'accueil
         Button button1 = findViewById(R.id.MenuButton);             // on récupère la référence du composant
         button1.setOnClickListener(this);                           // on crée un listener pour le compposant pour gérer son intéraction

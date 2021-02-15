@@ -26,12 +26,13 @@
 
         <ImageView
             android:id="@+id/TitleImageView"
-            android:layout_width="175dp"
-            android:layout_height="170dp"
+            android:layout_width="164dp"
+            android:layout_height="140dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:contentDescription="@string/title"
             android:src="@drawable/titrebibi"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -155,6 +156,7 @@
             app:layout_constraintEnd_toStartOf="@+id/TitleImageView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
