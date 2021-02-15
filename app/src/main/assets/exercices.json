@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "name": "Développé couché",
+        "description": "Description dév couché"
+    },
+    {
+        "id": 2,
+        "name": "Pompes",
+        "description": "Description pompes"
+    },
+    {
+        "id": 3,
+        "name": "Elévations latérales",
+        "description": "Description élévations latérales"
+    }
+]
