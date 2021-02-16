@@ -3,7 +3,6 @@
     package="com.example.projet_android">
 
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,6 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Projet_Android">
+
 
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
@@ -21,6 +21,10 @@
             android:value="true" />
 
         <activity
+            android:name=".ExerciceItemActivity"
+            android:label="ExerciceItemActivity">
+        </activity>
+        <activity
             android:name=".ExerciceActivity"
             android:label="@string/title_activity_exercice">
             <intent-filter>
@@ -29,8 +33,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
-        </activity>
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>

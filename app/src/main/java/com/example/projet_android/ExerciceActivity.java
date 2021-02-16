@@ -2,39 +2,28 @@ package com.example.projet_android;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Type;
-import java.nio.file.Path;
 import java.util.ArrayList;
 
-import classes.Exercice;
+import fragments.ExercicesItemFragment;
 
 public class ExerciceActivity extends AppCompatActivity {
 
-    String[] prenoms = new String[]{
-            "Antoine", "Benoit", "Cyril", "David", "Eloise", "Florent",
-            "Gerard", "Hugo", "Ingrid", "Jonathan", "Kevin", "Logan",
-            "Mathieu", "Noemie", "Olivia", "Philippe", "Quentin", "Romain","Sophie",
-            "Tristan", "Ulric", "Vincent", "Willy", "Xavier","Yann", "Zoé"};
+    String[] exos = new String[]{"",
+            "Développé couché", "Pompes", "Elévations latérales"};
 
     ListView mListView;
 
@@ -62,18 +51,48 @@ public class ExerciceActivity extends AppCompatActivity {
             e.printStackTrace();
         }*/
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(ExerciceActivity.this,
-                android.R.layout.simple_list_item_1,prenoms);
+        /*String path = "raw/exercices.json";
+        BufferedReader bufferedReader = null;
+        try {
+            bufferedReader = new BufferedReader(new FileReader(path));
+            Gson gson = new Gson();
+            Object json = gson.fromJson(bufferedReader, Object.class);
+            Log.i("dsc",json.toString());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1,exos);
         mListView.setAdapter(adapter);
+
+
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 String selectedItem= (String) parent.getItemAtPosition(position);
-                setContentView(R.layout.fragment_exercices_item);
+                startActivity(getIntent(selectedItem));
+                //setContentView(R.layout.fragment_exercices_item);
+                //  R.id.exerciceName=selectedItem;
             }
         });
 
         
+    }
+
+    private Intent getIntent(String exoName)
+    {
+        Intent intent= new Intent(this, ExerciceItemActivity.class);
+        Bundle extras = new Bundle();
+        extras.putString("Name",exoName);
+        extras.putString("Desc",exoName+" description");
+        extras.putString("Stats", exoName+" statistiques");
+        intent.putExtras(extras);
+
+        return intent;
     }
 
 

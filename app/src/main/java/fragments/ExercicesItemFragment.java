@@ -1,9 +1,11 @@
 package fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -50,12 +52,18 @@ public class ExercicesItemFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
             mParam3 = getArguments().getString(ARG_PARAM3);
         }
+        Log.i("param1",mParam1);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_exercices_item, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_exercices_item, container, false);
+        TextView exoName= view.findViewById(R.id.exerciceName);
+        Log.i("FRAGLOG","bonjour");
+        exoName.setText(getActivity().getIntent().getExtras().getString("Name"));
+        return view;
     }
 }
