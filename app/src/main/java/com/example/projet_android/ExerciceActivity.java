@@ -32,6 +32,7 @@ public class ExerciceActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_Design_Light_NoActionBar);
         setContentView(R.layout.activity_exercice);
         mListView = (ListView) findViewById(R.id.list);
         String data;

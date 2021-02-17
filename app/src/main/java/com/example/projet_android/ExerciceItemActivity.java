@@ -30,6 +30,7 @@ public class ExerciceItemActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_AppCompat_Light_NoActionBar);
         setContentView(R.layout.fragment_exercices_item);
         Intent intent = getIntent();
         TextView nameView = (TextView) findViewById(R.id.exerciceName);
