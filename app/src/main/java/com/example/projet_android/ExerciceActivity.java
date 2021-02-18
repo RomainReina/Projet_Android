@@ -1,6 +1,8 @@
 package com.example.projet_android;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.android.volley.Request;
@@ -22,12 +25,14 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import fragments.ExerciceAdapter;
+
 public class ExerciceActivity extends AppCompatActivity {
 
     /*String[] exos = new String[]{"",
             "Développé couché", "Pompes", "Elévations latérales"};*/
 
-    ListView mListView;
+    RecyclerView mRecyclerView;
 
     ArrayList<String> exos = new ArrayList<>();
 
@@ -37,11 +42,11 @@ public class ExerciceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setTheme(R.style.Theme_Design_Light_NoActionBar);
         setContentView(R.layout.activity_exercice);
-        mListView = (ListView) findViewById(R.id.list);
+        mRecyclerView = findViewById(R.id.exoList);
 
         //String URL = "https://wger.de/api/v2/exercise/?format=json";
         String URL = "https://raw.githubusercontent.com/julianshapiro/julian.com/master/muscle/workout.json";
-        ArrayList<String> exos=new ArrayList<>();
+        /*ArrayList<String> exos=new ArrayList<>();
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         JsonObjectRequest objectRequest=new JsonObjectRequest(
                 Request.Method.GET,
@@ -73,11 +78,13 @@ public class ExerciceActivity extends AppCompatActivity {
         //Log.i("ex", String.valueOf(exos));
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,exos);
-        //adapter.notifyDataSetChanged();
-        mListView.setAdapter(adapter);
+        */
+        ExerciceAdapter adapter= new ExerciceAdapter(URL,this);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
-
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        /*mRecyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 String selectedItem= (String) parent.getItemAtPosition(position);
@@ -85,7 +92,7 @@ public class ExerciceActivity extends AppCompatActivity {
                 //setContentView(R.layout.fragment_exercices_item);
                 //  R.id.exerciceName=selectedItem;
             }
-        });
+        });*/
 
         
     }
