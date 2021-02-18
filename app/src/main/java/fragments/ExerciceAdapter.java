@@ -31,16 +31,18 @@ import static android.os.Build.VERSION_CODES.R;
 /**
  * TODO: Replace the implementation with code for your data type.
  */
-public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHolder> {
+public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHolder>{
 
     private String mUrl;
-    private ArrayList<String> mExos = new ArrayList<String>();
+    public ArrayList<String> mExos = new ArrayList<String>();
     private Context mContext;
+    private RecyclerViewClickListener mListener;
 
-    public ExerciceAdapter(String url, Context context) {
+    public ExerciceAdapter(String url, Context context, RecyclerViewClickListener listener) {
 
         mUrl = url;
         mContext=context;
+        mListener=listener;
         recupExos(url);
         Log.i("tesst", String.valueOf(mExos));
     }
@@ -64,12 +66,18 @@ public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHo
         return mExos.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public interface RecyclerViewClickListener
+    {
+        void onClick(View v, int position);
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final TextView name;
 
         public ViewHolder(View view) {
             super(view);
             name = (TextView) view.findViewById(com.example.projet_android.R.id.exoName);
+            view.setOnClickListener((View.OnClickListener) this);
             /*view.setOnClickListener((v)-> //à chaque fois qu'on va cliquer sur le layout, la méthode onViewTweet va être appelée
                 {
                     mContext.startActivity();
@@ -81,6 +89,11 @@ public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHo
         @Override
         public String toString() {
             return super.toString() + " '" + name.getText() + "'";
+        }
+
+        @Override
+        public void onClick(View v) {
+            mListener.onClick(v,getAdapterPosition());
         }
     }
 
