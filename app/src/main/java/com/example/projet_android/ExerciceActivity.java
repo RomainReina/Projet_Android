@@ -39,7 +39,8 @@ public class ExerciceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_exercice);
         mListView = (ListView) findViewById(R.id.list);
 
-        String URL = "https://wger.de/api/v2/exercise/?format=json";
+        //String URL = "https://wger.de/api/v2/exercise/?format=json";
+        String URL = "https://raw.githubusercontent.com/julianshapiro/julian.com/master/muscle/workout.json";
         ArrayList<String> exos=new ArrayList<>();
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         JsonObjectRequest objectRequest=new JsonObjectRequest(
@@ -50,10 +51,11 @@ public class ExerciceActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            for (int i=0;i<response.getJSONArray("results").length();i++)
+                            //Log.i("test", String.valueOf(response.getJSONArray("exercises").getJSONObject(0).getString("name")));
+                            for (int i=0;i<response.getJSONArray("exercices").length();i++)
                             {
                                 exos.add(response.getJSONArray("results").getJSONObject(i).getString("name"));
-                                //Log.i("exoos", String.valueOf(exos));
+                                Log.i("exoos", String.valueOf(exos));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
