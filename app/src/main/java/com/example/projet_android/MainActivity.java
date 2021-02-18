@@ -1,6 +1,8 @@
 package com.example.projet_android;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,10 +10,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener, View.OnClickListener {
 
+    Executor executor = Executors.newSingleThreadExecutor();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +26,21 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         setTheme(R.style.Theme_Design_Light_NoActionBar);              // on cache l'action barre
         setContentView(R.layout.home_page_layout);                  // on charge le layout de la page d'accueil
         Button button1 = findViewById(R.id.MenuButton);             // on récupère la référence du composant
-        button1.setOnClickListener(this);                           // on crée un listener pour le compposant pour gérer son intéraction
+        button1.setOnClickListener(this);// on crée un listener pour le compposant pour gérer son intéraction
+        TextView stepText = findViewById(R.id.NombreDePasTextView);
+
+        executor.execute(()->
+        {
+            UserDatabase db = Room.databaseBuilder(this,UserDatabase.class,"UserDatabase.db").build();
+            User user = new User();
+            user.setUsername("pat");
+            user.setPassword("password");
+            user.setSteps("10");
+            db.userDAO().insert(user);
+
+
+            stepText.setText(user.getSteps()); //UI manipulation, forbidden in background thread
+        });
     }
 
     public void showPopup (View v) {                                // On crée la pop-up
