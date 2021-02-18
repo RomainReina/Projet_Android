@@ -16,9 +16,18 @@ import android.widget.Toast;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import pl.pawelkleczkowski.customgauge.CustomGauge;
+
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener, View.OnClickListener {
 
+    //TODO implémenter fonction imc dans database comme attribut de user
+    //TODO essayer de tester avec login ?
+    //TODO esthétisme opage d'accueil
+    
+
     Executor executor = Executors.newSingleThreadExecutor();
+    public long IMC;
+    public long value;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +37,11 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         Button button1 = findViewById(R.id.MenuButton);             // on récupère la référence du composant
         button1.setOnClickListener(this);// on crée un listener pour le compposant pour gérer son intéraction
         TextView stepText = findViewById(R.id.NombreDePasTextView);
+        CustomGauge gauge = findViewById(R.id.imcGauge);
+        TextView imcTextView = findViewById(R.id.GaugeTextView);
+
+
+        gauge.setValue(50);
 
         executor.execute(()->
         {
@@ -36,10 +50,14 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             user.setUsername("pat");
             user.setPassword("password");
             user.setSteps("10");
+            user.setHeight(180);
+            user.setWeight(75);
+            value = ComputeIMC(user.getWeight(),user.getHeight());
             db.userDAO().insert(user);
 
 
             stepText.setText(user.getSteps()); //UI manipulation, forbidden in background thread
+            imcTextView.setText("15");
         });
     }
 
@@ -88,4 +106,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 break;
         }
     }
+
+    public long ComputeIMC(long weight, long height)
+        {
+            IMC = weight / (long) Math.pow(height,2);
+            return IMC;
+        }
 }

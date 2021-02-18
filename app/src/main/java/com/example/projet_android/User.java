@@ -20,7 +20,7 @@ public class User {
     @ColumnInfo
     private long height;
     @ColumnInfo
-    private int weight;
+    private long weight;
 
     public long getId() {
         return id;
@@ -70,11 +70,11 @@ public class User {
         this.height = height;
     }
 
-    public int getWeight() {
+    public long getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(long weight) {
         this.weight = weight;
     }
 

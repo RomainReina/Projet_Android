@@ -159,7 +159,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <pl.pawelkleczkowski.customgauge.CustomGauge
-            android:id="@+id/gauge1"
+            android:id="@+id/imcGauge"
             android:layout_width="84dp"
             android:layout_height="70dp"
             android:layout_centerHorizontal="true"
@@ -169,18 +169,28 @@
             android:paddingTop="20dp"
             android:paddingRight="20dp"
             android:paddingBottom="20dp"
-            app:gaugeEndValue="12"
+            app:gaugeEndValue="100"
             app:gaugePointEndColor="@color/purple_700"
-            app:gaugePointSize="6"
+            app:gaugePointSize="10"
             app:gaugePointStartColor="@color/teal_200"
             app:gaugeStartAngle="135"
-            app:gaugeStartValue="10"
+            app:gaugeStartValue="0"
             app:gaugeStrokeCap="ROUND"
             app:gaugeStrokeColor="@color/black"
             app:gaugeStrokeWidth="10dp"
             app:gaugeSweepAngle="270"
             app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
             app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/GaugeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/imc"
+            app:layout_constraintBottom_toBottomOf="@+id/imcGauge"
+            app:layout_constraintEnd_toEndOf="@+id/imcGauge"
+            app:layout_constraintStart_toStartOf="@+id/imcGauge"
+            app:layout_constraintTop_toTopOf="@+id/imcGauge" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
