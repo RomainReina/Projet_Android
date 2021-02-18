@@ -2,6 +2,7 @@ package com.example.projet_android;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.VoiceInteractor;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,24 +11,36 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import fragments.ExercicesItemFragment;
 
 public class ExerciceActivity extends AppCompatActivity {
 
-    String[] exos = new String[]{"",
-            "Développé couché", "Pompes", "Elévations latérales"};
+    /*String[] exos = new String[]{"",
+            "Développé couché", "Pompes", "Elévations latérales"};*/
 
     ListView mListView;
 
-    ArrayList<String> list = new ArrayList<>();
+    ArrayList<String> exercices = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,39 +48,12 @@ public class ExerciceActivity extends AppCompatActivity {
         setTheme(R.style.Theme_Design_Light_NoActionBar);
         setContentView(R.layout.activity_exercice);
         mListView = (ListView) findViewById(R.id.list);
-        String data;
-        /*try {
-            InputStream is = getAssets().open("exercices.json");
-            int size= is.available();
-            byte[] buffer=new byte[size];
-            is.read(buffer);
-            is.close();
-            data = new String(buffer,"UTF-8");
-            JSONObject json = new JSONObject(data);
-            String test= json.getString("name");
-            Log.i("fj",test);
 
-
-        } catch (JSONException | IOException e) {
-            e.printStackTrace();
-        }*/
-
-        /*String path = "raw/exercices.json";
-        BufferedReader bufferedReader = null;
-        try {
-            bufferedReader = new BufferedReader(new FileReader(path));
-            Gson gson = new Gson();
-            Object json = gson.fromJson(bufferedReader, Object.class);
-            Log.i("dsc",json.toString());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-
-
+        String URL = "https://wger.de/api/v2/exercise/?format=json";
+        exercices=recupExos(URL);
+        Log.i("ex", String.valueOf(exercices));
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1,exos);
+                android.R.layout.simple_list_item_1,exercices);
         mListView.setAdapter(adapter);
 
 
@@ -94,6 +80,40 @@ public class ExerciceActivity extends AppCompatActivity {
         intent.putExtras(extras);
 
         return intent;
+    }
+
+    private ArrayList<String> recupExos(String url)
+    {
+        ArrayList<String> exos=new ArrayList<>();
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        JsonObjectRequest objectRequest=new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            for (int i=0;i<response.getJSONArray("results").length();i++)
+                            {
+                                exos.add(response.getJSONArray("results").getJSONObject(i).getString("name"));
+                                Log.i("exoos", String.valueOf(exos));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Rest Response",error.toString());
+                    }
+                });
+
+        requestQueue.add(objectRequest);
+        Log.i("exos", String.valueOf(exos));
+        return exos;
     }
 
 
