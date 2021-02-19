@@ -26,8 +26,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     
 
     Executor executor = Executors.newSingleThreadExecutor();
-    public long IMC;
-    public long value;
+    public int value;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         TextView imcTextView = findViewById(R.id.GaugeTextView);
 
 
-        gauge.setValue(50);
+
 
         executor.execute(()->
         {
@@ -50,14 +49,17 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             user.setUsername("pat");
             user.setPassword("password");
             user.setSteps("10");
-            user.setHeight(180);
-            user.setWeight(75);
-            value = ComputeIMC(user.getWeight(),user.getHeight());
+            user.setHeight(1.80);
+            user.setWeight(180);
+            value = user.ComputeIMC();
+
             db.userDAO().insert(user);
 
 
             stepText.setText(user.getSteps()); //UI manipulation, forbidden in background thread
-            imcTextView.setText("15");
+            imcTextView.setText(String.valueOf(value));
+            gauge.setValue(value);
+
         });
     }
 
@@ -106,10 +108,4 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 break;
         }
     }
-
-    public long ComputeIMC(long weight, long height)
-        {
-            IMC = weight / (long) Math.pow(height,2);
-            return IMC;
-        }
 }

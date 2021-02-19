@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey;
 @Entity
 public class User {
 
+
     @PrimaryKey(autoGenerate = true)
     private long id;
     @ColumnInfo
@@ -16,11 +17,11 @@ public class User {
     @ColumnInfo(name = "steps")
     private String steps;
     @ColumnInfo(name = "imc")
-    private long imc;
+    private float imc;
     @ColumnInfo
-    private long height;
+    private double height;
     @ColumnInfo
-    private long weight;
+    private int weight;
 
     public long getId() {
         return id;
@@ -54,28 +55,34 @@ public class User {
         this.steps = steps;
     }
 
-    public long getImc() {
+    public float getImc() {
         return imc;
     }
 
-    public void setImc(long imc) {
+    public void setImc(float imc) {
         this.imc = imc;
     }
 
-    public long getHeight() {
+    public double getHeight() {
         return height;
     }
 
-    public void setHeight(long height) {
+    public void setHeight(double height) {
         this.height = height;
     }
 
-    public long getWeight() {
+    public int getWeight() {
         return weight;
     }
 
-    public void setWeight(long weight) {
+    public void setWeight(int weight) {
         this.weight = weight;
+    }
+    
+    public int ComputeIMC()
+    {
+        setImc(Math.round(getWeight() / Math.pow(getHeight(),2)));
+        return ((int)getImc());
     }
 
 
