@@ -34,7 +34,8 @@ import static android.os.Build.VERSION_CODES.R;
 public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHolder>{
 
     private String mUrl;
-    public ArrayList<String> mExos = new ArrayList<String>();
+    public ArrayList<String> mExosName = new ArrayList<String>();
+    public ArrayList<String> mExosUrl = new ArrayList<String>();
     private Context mContext;
     private RecyclerViewClickListener mListener;
 
@@ -44,7 +45,6 @@ public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHo
         mContext=context;
         mListener=listener;
         recupExos(url);
-        Log.i("tesst", String.valueOf(mExos));
     }
 
     @Override
@@ -56,14 +56,14 @@ public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.name.setText(mExos.get(position));
+        holder.name.setText(mExosName.get(position));
     }
 
 
 
     @Override
     public int getItemCount() {
-        return mExos.size();
+        return mExosName.size();
     }
 
     public interface RecyclerViewClickListener
@@ -78,11 +78,6 @@ public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHo
             super(view);
             name = (TextView) view.findViewById(com.example.projet_android.R.id.exoName);
             view.setOnClickListener((View.OnClickListener) this);
-            /*view.setOnClickListener((v)-> //à chaque fois qu'on va cliquer sur le layout, la méthode onViewTweet va être appelée
-                {
-                    mContext.startActivity();
-                }
-            );*/
 
         }
 
@@ -108,7 +103,8 @@ public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHo
                     public void onResponse(JSONObject response) {
                         try {
                             for (int i = 0; i < response.getJSONArray("exercises").length(); i++) {
-                                mExos.add(response.getJSONArray("exercises").getJSONObject(i).getString("name"));
+                                mExosName.add(response.getJSONArray("exercises").getJSONObject(i).getString("name"));
+                                mExosUrl.add(response.getJSONArray("exercises").getJSONObject(i).getString("video"));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
