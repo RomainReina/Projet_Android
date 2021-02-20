@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,9 +33,10 @@ import static android.os.Build.VERSION_CODES.R;
 /**
  * TODO: Replace the implementation with code for your data type.
  */
-public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHolder>{
+public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHolder> implements Filterable {
 
     private String mUrl;
+    public ArrayList<String> copyExosName=new ArrayList<>();
     public ArrayList<String> mExosName = new ArrayList<String>();
     public ArrayList<String> mExosUrl = new ArrayList<String>();
     private Context mContext;
@@ -65,6 +68,44 @@ public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHo
     public int getItemCount() {
         return mExosName.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return exampleFilter;
+    }
+    private Filter exampleFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<String> filteredList = new ArrayList<>();
+            if (constraint ==null || constraint.length() == 0)
+            {
+                filteredList.addAll(copyExosName);
+            }
+            else
+            {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for (String exo : copyExosName)
+                {
+                    if (exo.toLowerCase().contains(filterPattern))
+                    {
+                        filteredList.add(exo);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            mExosName.clear();
+            mExosName.addAll((List)results.values);
+            notifyDataSetChanged();
+
+
+        }
+    };
 
     public interface RecyclerViewClickListener
     {
@@ -104,6 +145,7 @@ public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHo
                         try {
                             for (int i = 0; i < response.getJSONArray("exercises").length(); i++) {
                                 mExosName.add(response.getJSONArray("exercises").getJSONObject(i).getString("name"));
+                                copyExosName.add(response.getJSONArray("exercises").getJSONObject(i).getString("name"));
                                 mExosUrl.add(response.getJSONArray("exercises").getJSONObject(i).getString("video"));
                             }
                         } catch (JSONException e) {

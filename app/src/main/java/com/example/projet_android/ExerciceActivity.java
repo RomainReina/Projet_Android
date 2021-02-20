@@ -4,14 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -38,7 +44,6 @@ public class ExerciceActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(R.style.Theme_Design_Light_NoActionBar);
         setContentView(R.layout.activity_exercice);
         mRecyclerView = findViewById(R.id.exoList);
 
@@ -50,9 +55,31 @@ public class ExerciceActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+        //setHasOptionMenu(true);
 
 
         
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+        ;
+        return true;
     }
 
     private void setOnClickListener() {
@@ -69,14 +96,12 @@ public class ExerciceActivity extends AppCompatActivity {
     {
         Intent intent= new Intent(this, ExerciceItemActivity.class);
         Bundle extras = new Bundle();
-        extras.putString("Name",adapter.mExosName.get(idExo));
-        extras.putString("Video",adapter.mExosUrl.get(idExo));
+        String name = adapter.mExosName.get(idExo);
+        extras.putString("Name",name);
+        extras.putString("Video",adapter.mExosUrl.get(adapter.copyExosName.indexOf(name)));
         intent.putExtras(extras);
 
         return intent;
     }
-
-
-
 
 }

@@ -9,29 +9,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/exoList"
         android:layout_width="411dp"
-        android:layout_height="537dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView" />
-
-    <SearchView
-        android:id="@+id/searchView"
-        android:layout_width="223dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exoName">
-
-    </SearchView>
-
-    <TextView
-        android:id="@+id/exoName"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/exercices"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
