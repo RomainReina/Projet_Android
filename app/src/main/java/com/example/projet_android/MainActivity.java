@@ -2,7 +2,6 @@ package com.example.projet_android;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
-import androidx.room.RoomDatabase;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,12 +19,17 @@ import pl.pawelkleczkowski.customgauge.CustomGauge;
 
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener, View.OnClickListener {
 
-    //TODO essayer de tester avec login ?
+    //TODO utilisation parcable pour récupérer plussieurs donées en passant de login à main
+    //TODO bdd elle fait quoi ?
     //TODO esthétisme page d'accueil
     
 
     Executor executor = Executors.newSingleThreadExecutor();
     public int value;
+    public String id;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,25 +41,23 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         TextView stepText = findViewById(R.id.NombreDePasTextView);
         CustomGauge gauge = findViewById(R.id.imcGauge);
         TextView imcTextView = findViewById(R.id.GaugeTextView);
-
-
-
+        TextView welcomeTextView = findViewById(R.id.loginUsername);
+        UserDatabase db = Room.databaseBuilder(this,UserDatabase.class,"UserDatabase.db").build();
 
         executor.execute(()->
         {
-            UserDatabase db = Room.databaseBuilder(this,UserDatabase.class,"UserDatabase.db").build();
-            User user = new User();
-            user.setUsername("pat");
-            user.setPassword("password");
-            user.setSteps("10");
-            user.setHeight(1.80);
-            user.setWeight(180);
-            value = user.ComputeIMC();
 
-            db.userDAO().insert(user);
+              User user;
+              user = db.userDAO().retrieveUserInfo(getIntent().getStringExtra("username"));
+//            user.setUsername("pat");
+//            user.setPassword("password");
+//            user.setSteps("10");
+//            user.setHeight(1.80);
+//            user.setWeight(180);
+//            value = user.ComputeIMC();
 
-
-            stepText.setText(user.getSteps()); //UI manipulation, forbidden in background thread
+            welcomeTextView.setText(user.getUsername());
+            stepText.setText("15"); //UI manipulation, forbidden in background thread
             imcTextView.setText(String.valueOf(value));
             gauge.setValue(value);
 
@@ -79,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 startActivity(new Intent(this,Settings.class));
                 return true;
             case R.id.option1:
-                Toast.makeText(this,"option1",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, Register.class));
                 return true;
             default:
                 return false;

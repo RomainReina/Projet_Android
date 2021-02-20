@@ -4,15 +4,15 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(tableName = "users")
 public class User {
 
 
     @PrimaryKey(autoGenerate = true)
     private long id;
-    @ColumnInfo
+    @ColumnInfo(name = "username")
     private String username;
-    @ColumnInfo
+    @ColumnInfo(name = "password")
     private String password;
     @ColumnInfo(name = "steps")
     private String steps;

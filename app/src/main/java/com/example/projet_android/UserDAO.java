@@ -1,5 +1,7 @@
 package com.example.projet_android;
 
+import android.os.Bundle;
+
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -10,14 +12,15 @@ import java.util.List;
 @Dao
 public interface UserDAO {
 
-    @Query("select steps from User")
-    int retrieveInfo();
+    @Query("select * from users where username =(:username)")
+    User retrieveUserInfo(String username);
+
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(List<User> persons);
+    void insertAll(List<User> users);
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(User person);
+    void insert(User user);
     //Delete
     @Delete
-    void delete(User person);
+    void delete(User user);
 }
