@@ -20,9 +20,8 @@ import pl.pawelkleczkowski.customgauge.CustomGauge;
 
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener, View.OnClickListener {
 
-    //TODO implémenter fonction imc dans database comme attribut de user
     //TODO essayer de tester avec login ?
-    //TODO esthétisme opage d'accueil
+    //TODO esthétisme page d'accueil
     
 
     Executor executor = Executors.newSingleThreadExecutor();

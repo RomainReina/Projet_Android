@@ -96,17 +96,6 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/GraphIMCImageView"
-                android:layout_width="80dp"
-                android:layout_height="58dp"
-                android:layout_marginTop="24dp"
-                android:contentDescription="@string/imcgraph"
-                android:src="@drawable/graph_imc"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/divider"
-                app:layout_constraintTop_toBottomOf="@+id/IMCIconeImageView" />
-
-            <ImageView
                 android:id="@+id/ObjectifIconeImageView"
                 android:layout_width="92dp"
                 android:layout_height="76dp"
@@ -120,12 +109,12 @@
                 android:id="@+id/ObjectifTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="36dp"
                 android:text="@string/objectifs"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/ObjectifIconeImageView"
-                app:layout_constraintTop_toBottomOf="@+id/GraphIMCImageView" />
+                app:layout_constraintTop_toBottomOf="@+id/divider2" />
 
             <View
                 android:id="@+id/divider"
@@ -145,6 +134,40 @@
                 app:layout_constraintTop_toTopOf="@+id/divider"
                 tools:layout_editor_absoluteX="-32dp" />
 
+            <pl.pawelkleczkowski.customgauge.CustomGauge
+                android:id="@+id/imcGauge"
+                android:layout_width="84dp"
+                android:layout_height="70dp"
+                android:layout_centerHorizontal="true"
+                android:paddingLeft="20dp"
+                android:paddingTop="20dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="20dp"
+                app:gaugeEndValue="100"
+                app:gaugePointEndColor="@android:color/holo_green_light"
+                app:gaugePointSize="10"
+                app:gaugePointStartColor="@color/teal_200"
+                app:gaugeStartAngle="135"
+                app:gaugeStartValue="0"
+                app:gaugeStrokeCap="ROUND"
+                app:gaugeStrokeColor="@color/black"
+                app:gaugeStrokeWidth="10dp"
+                app:gaugeSweepAngle="270"
+                app:layout_constraintBottom_toBottomOf="@+id/divider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/divider"
+                app:layout_constraintTop_toBottomOf="@+id/IMCIconeImageView" />
+
+            <TextView
+                android:id="@+id/GaugeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/imc"
+                app:layout_constraintBottom_toBottomOf="@+id/imcGauge"
+                app:layout_constraintEnd_toEndOf="@+id/imcGauge"
+                app:layout_constraintStart_toStartOf="@+id/imcGauge"
+                app:layout_constraintTop_toTopOf="@+id/imcGauge" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
@@ -157,40 +180,6 @@
             app:layout_constraintEnd_toStartOf="@+id/TitleImageView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <pl.pawelkleczkowski.customgauge.CustomGauge
-            android:id="@+id/imcGauge"
-            android:layout_width="84dp"
-            android:layout_height="70dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginEnd="56dp"
-            android:layout_marginBottom="36dp"
-            android:paddingLeft="20dp"
-            android:paddingTop="20dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="20dp"
-            app:gaugeEndValue="100"
-            app:gaugePointEndColor="@color/purple_700"
-            app:gaugePointSize="10"
-            app:gaugePointStartColor="@color/teal_200"
-            app:gaugeStartAngle="135"
-            app:gaugeStartValue="0"
-            app:gaugeStrokeCap="ROUND"
-            app:gaugeStrokeColor="@color/black"
-            app:gaugeStrokeWidth="10dp"
-            app:gaugeSweepAngle="270"
-            app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <TextView
-            android:id="@+id/GaugeTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/imc"
-            app:layout_constraintBottom_toBottomOf="@+id/imcGauge"
-            app:layout_constraintEnd_toEndOf="@+id/imcGauge"
-            app:layout_constraintStart_toStartOf="@+id/imcGauge"
-            app:layout_constraintTop_toTopOf="@+id/imcGauge" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
