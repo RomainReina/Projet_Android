@@ -47,7 +47,6 @@ public class ExerciceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_exercice);
         mRecyclerView = findViewById(R.id.exoList);
 
-        //String URL = "https://wger.de/api/v2/exercise/?format=json";
         String URL = "https://raw.githubusercontent.com/julianshapiro/julian.com/master/muscle/workout.json";
 
         setOnClickListener();
@@ -55,7 +54,6 @@ public class ExerciceActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-        //setHasOptionMenu(true);
 
 
         

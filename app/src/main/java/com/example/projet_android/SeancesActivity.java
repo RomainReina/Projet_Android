@@ -1,0 +1,65 @@
+package com.example.projet_android;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.SearchView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import fragments.ExerciceAdapter;
+import fragments.SeanceAdapter;
+
+public class SeancesActivity extends AppCompatActivity {
+
+
+    RecyclerView mRecyclerView;
+    private SeanceAdapter.RecyclerViewClickListener listener;
+
+    SeanceAdapter adapter;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_exercice);
+        mRecyclerView = findViewById(R.id.exoList);
+
+        String URL = "https://raw.githubusercontent.com/julianshapiro/julian.com/master/muscle/workout.json";
+
+        setOnClickListener();
+        adapter= new SeanceAdapter(URL,this,listener);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+        
+    }
+
+    private void setOnClickListener() {
+        listener= new SeanceAdapter.RecyclerViewClickListener() {
+            @Override
+            public void onClick(View v, int position) {
+                Intent intent = getIntent(position);
+                startActivity(intent);
+            }
+        };
+    }
+
+    private Intent getIntent(int idSeance)
+    {
+        Intent intent= new Intent(this, SeanceItemActivity.class);
+        Bundle extras = new Bundle();
+        String seances = adapter.mSeances.get(idSeance);
+        extras.putString("Seance",seances);
+        intent.putExtras(extras);
+        return intent;
+    }
+
+}

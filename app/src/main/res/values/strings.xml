@@ -15,4 +15,7 @@
     <string name="title_activity_exercice_item">ExerciceItemActivity</string>
     <string name="nomex">nomEx</string>
     <string name="search">Search</string>
+    <string name="seancename">seanceName</string>
+    <string name="exsets">exSets</string>
+    <string name="voir_exercice">Voir Exercice</string>
 </resources>
