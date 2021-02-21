@@ -24,7 +24,6 @@ public class SBLoginActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.login_layout);
 
         mLoginEditText = (EditText) findViewById(R.id.loginEditText);
@@ -34,12 +33,11 @@ public class SBLoginActivity extends AppCompatActivity implements View.OnClickLi
         final String login = PreferenceUtils.getLogin();
         if(!TextUtils.isEmpty(login)){
             startActivity(getHomeIntent(login));
-    }
+        }
     }
 
     @Override
     public void onClick(View v) {
-
 
         String login;
 

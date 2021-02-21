@@ -16,6 +16,7 @@ public class SBApplication extends Application {
 
 	// Used to access Context anywhere within the app
 	public static Context getContext() {
+
 		return sContext;
 	}
 }
