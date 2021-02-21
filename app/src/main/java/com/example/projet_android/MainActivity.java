@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         setContentView(R.layout.home_page_layout);                  // on charge le layout de la page d'accueil
         Button button1 = findViewById(R.id.MenuButton);             // on récupère la référence du composant
         button1.setOnClickListener(this);// on crée un listener pour le compposant pour gérer son intéraction
+        Button LogoutButton = findViewById(R.id.LogoutButton);
+        LogoutButton.setOnClickListener(this);
         TextView stepText = findViewById(R.id.NombreDePasTextView);
         CustomGauge gauge = findViewById(R.id.imcGauge);
         TextView imcTextView = findViewById(R.id.GaugeTextView);
@@ -90,23 +92,17 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     @Override
     public void onClick(View v) {                               // si l'appuie sur le bouton est détecté, on affiche la pop-up
-        showPopup(v);
-
-    }
-
-    private int cpt = 0;
-    @Override
-    public void onBackPressed()             // On gère le cas où l'utilisateur appuie sur la touche retour
-    {
-        cpt++;
-        switch(cpt)
+        if(v.getId() == R.id.MenuButton)
         {
-            case 1:
-                Toast.makeText(this, "Souhaitez vous vraiment quitter l'application ? Appuyer sur retour pour confirmer", Toast.LENGTH_LONG).show();
-                break;
-            case 2:
-                super.onBackPressed();
-                break;
+            showPopup(v);
         }
+
+        else if(v.getId() == R.id.LogoutButton)
+        {
+            startActivity(new Intent(this,Register.class));
+        }
+
+
     }
+
 }

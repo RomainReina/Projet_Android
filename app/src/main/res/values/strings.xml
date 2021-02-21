@@ -39,4 +39,6 @@
     <string name="enter_weight">enter weight</string>
     <string name="enter_height">enter height</string>
     <string name="welcome">Welcome</string>
+    <string name="logout">Logout</string>
+    <string name="log_out">log out</string>
 </resources>

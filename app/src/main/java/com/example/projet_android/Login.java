@@ -23,7 +23,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.login);
         userID = findViewById(R.id.loginUsername);
         password = findViewById(R.id.loginPassword);
-        Button button = findViewById(R.id.button2);
+        Button button = findViewById(R.id.Login);
+        Button createAccount = findViewById(R.id.CreateAccountButton);
+        createAccount.setOnClickListener(this);
         button.setOnClickListener(this);
     }
 
@@ -76,25 +78,35 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        UserDatabase db = Room.databaseBuilder(this, UserDatabase.class, "UserDatabase.db").build();
-        User user = new User();
 
-
-        if(!CheckUsername() || !Checkpassword())
+        if(v.getId() == R.id.Login)
         {
-            return;
+            UserDatabase db = Room.databaseBuilder(this, UserDatabase.class, "UserDatabase.db").build();
+            User user = new User();
+
+
+            if(!CheckUsername() || !Checkpassword())
+            {
+                return;
+            }
+            String userIDText = userID.getText().toString().trim();
+            String passwordtext = password.getText().toString();
+
+            executor.execute(()->
+            {
+                user.setUsername(userIDText);
+                user.setPassword(passwordtext);
+                db.userDAO().insert(user);
+
+                startActivity(new Intent(this,MainActivity.class).putExtra("username",userIDText));
+
+            });
         }
-        String userIDText = userID.getText().toString().trim();
-        String passwordtext = password.getText().toString();
 
-        executor.execute(()->
+        else if(v.getId() == R.id.CreateAccountButton)
         {
-            user.setUsername(userIDText);
-            user.setPassword(passwordtext);
-            db.userDAO().insert(user);
-
-            startActivity(new Intent(this,MainActivity.class).putExtra("username",userIDText));
-
-        });
+            startActivity(new Intent(this,Register.class));
+        }
     }
+
 }

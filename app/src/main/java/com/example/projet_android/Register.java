@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.room.Room;
 
@@ -17,6 +18,7 @@ import java.util.concurrent.Executors;
 public class Register extends Activity implements View.OnClickListener {
     EditText userID,password,weight,height;
     Button button;
+    Button logButton;
     List<String> usernames = new ArrayList<>();
 
 
@@ -34,19 +36,14 @@ public class Register extends Activity implements View.OnClickListener {
         weight = findViewById(R.id.weight);
         height = findViewById(R.id.height);
         button = findViewById(R.id.RegisterButton);
+        logButton = findViewById(R.id.LogButton);
+        logButton.setOnClickListener(this);
         button.setOnClickListener(this);
 
 
         }
         public boolean CheckUsername()
         {
-            executor.execute(()->
-            {
-                UserDatabase db = Room.databaseBuilder(this, UserDatabase.class, "UserDatabase.db").build();
-                usernames = db.userDAO().allUsername();
-            });
-
-
             String input = userID.getText().toString();
             if(input.isEmpty())
             {
@@ -131,41 +128,41 @@ public class Register extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        UserDatabase db = Room.databaseBuilder(this, UserDatabase.class, "UserDatabase.db").build();
-        User user = new User();
-
-
-        if(!CheckUsername() || !Checkpassword() || !CheckWeight() || !CheckHeight())
+        if(v.getId() == R.id.RegisterButton)
         {
-            return;
+            UserDatabase db = Room.databaseBuilder(this, UserDatabase.class, "UserDatabase.db").build();
+            User user = new User();
+
+
+            if(!CheckUsername() || !Checkpassword() || !CheckWeight() || !CheckHeight())
+            {
+                return;
+            }
+            String userIDText = userID.getText().toString().trim();
+            String passwordtext = password.getText().toString();
+            String weightText = weight.getText().toString();
+            String heightText = height.getText().toString();
+
+            executor.execute(()->
+            {
+                user.setUsername(userIDText);
+                user.setPassword(passwordtext);
+                user.setWeight(Integer.parseInt(weightText));
+                user.setHeight(Integer.parseInt(heightText));
+                db.userDAO().insert(user);
+
+                startActivity(new Intent(this,MainActivity.class).putExtra("username",userIDText));
+            });
+
         }
-        String userIDText = userID.getText().toString().trim();
-        String passwordtext = password.getText().toString();
-        String weightText = weight.getText().toString();
-        String heightText = height.getText().toString();
 
-        executor.execute(()->
+        else if(v.getId() == R.id.LogButton)
         {
-            user.setUsername(userIDText);
-            user.setPassword(passwordtext);
-            user.setWeight(Integer.parseInt(weightText));
-            user.setHeight(Integer.parseInt(heightText));
-            db.userDAO().insert(user);
-
-            startActivity(new Intent(this,MainActivity.class).putExtra("username",userIDText));
-        });
-
-
+            startActivity(new Intent(this,Login.class));
+        }
 
     }
-
-
-
-
-
-
-
-    }
+}
 
 
 
