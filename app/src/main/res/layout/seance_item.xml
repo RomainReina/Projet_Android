@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--<androidx.recyclerview.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/exoCardList"
         android:layout_width="373dp"
         android:layout_height="621dp"
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/exsets" />
         </androidx.cardview.widget.CardView>
-    </androidx.recyclerview.widget.RecyclerView>-->
+    </androidx.recyclerview.widget.RecyclerView>
 
     <TextView
         android:id="@+id/seance"

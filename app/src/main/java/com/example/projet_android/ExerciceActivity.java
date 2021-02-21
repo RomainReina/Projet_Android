@@ -31,6 +31,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import classes.Exercice;
 import fragments.ExerciceAdapter;
 
 public class ExerciceActivity extends AppCompatActivity {
@@ -94,9 +95,10 @@ public class ExerciceActivity extends AppCompatActivity {
     {
         Intent intent= new Intent(this, ExerciceItemActivity.class);
         Bundle extras = new Bundle();
-        String name = adapter.mExosName.get(idExo);
+        String name = adapter.mExos.get(idExo).getmName();
+        String video=adapter.mExos.get(idExo).getmUrl();
         extras.putString("Name",name);
-        extras.putString("Video",adapter.mExosUrl.get(adapter.copyExosName.indexOf(name)));
+        extras.putString("Video",video);
         intent.putExtras(extras);
 
         return intent;

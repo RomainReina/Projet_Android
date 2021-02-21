@@ -28,6 +28,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import classes.Exercice;
+
 import static android.os.Build.VERSION_CODES.R;
 
 /**
@@ -36,9 +38,9 @@ import static android.os.Build.VERSION_CODES.R;
 public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHolder> implements Filterable {
 
     private String mUrl;
-    public ArrayList<String> copyExosName=new ArrayList<>();
-    public ArrayList<String> mExosName = new ArrayList<String>();
-    public ArrayList<String> mExosUrl = new ArrayList<String>();
+    public ArrayList<Exercice> copyExos=new ArrayList<>();
+    public ArrayList<Exercice> mExos = new ArrayList<>();
+    //public ArrayList<String> mExosUrl = new ArrayList<String>();
     private Context mContext;
     private RecyclerViewClickListener mListener;
 
@@ -59,14 +61,14 @@ public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.name.setText(mExosName.get(position));
+        holder.name.setText(mExos.get(position).getmName());
     }
 
 
 
     @Override
     public int getItemCount() {
-        return mExosName.size();
+        return mExos.size();
     }
 
     @Override
@@ -76,17 +78,17 @@ public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHo
     private Filter exampleFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            List<String> filteredList = new ArrayList<>();
+            List<Exercice> filteredList = new ArrayList<>();
             if (constraint ==null || constraint.length() == 0)
             {
-                filteredList.addAll(copyExosName);
+                filteredList.addAll(copyExos);
             }
             else
             {
                 String filterPattern = constraint.toString().toLowerCase().trim();
-                for (String exo : copyExosName)
+                for (Exercice exo : copyExos)
                 {
-                    if (exo.toLowerCase().contains(filterPattern))
+                    if (exo.getmName().toLowerCase().contains(filterPattern))
                     {
                         filteredList.add(exo);
                     }
@@ -99,8 +101,8 @@ public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHo
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            mExosName.clear();
-            mExosName.addAll((List)results.values);
+            mExos.clear();
+            mExos.addAll((List)results.values);
             notifyDataSetChanged();
 
 
@@ -135,6 +137,7 @@ public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHo
 
     private void recupExos(String url) {
         RequestQueue requestQueue = Volley.newRequestQueue(mContext);
+
         JsonObjectRequest objectRequest = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
@@ -144,9 +147,10 @@ public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHo
                     public void onResponse(JSONObject response) {
                         try {
                             for (int i = 0; i < response.getJSONArray("exercises").length(); i++) {
-                                mExosName.add(response.getJSONArray("exercises").getJSONObject(i).getString("name"));
-                                copyExosName.add(response.getJSONArray("exercises").getJSONObject(i).getString("name"));
-                                mExosUrl.add(response.getJSONArray("exercises").getJSONObject(i).getString("video"));
+                                JSONObject obj=response.getJSONArray("exercises").getJSONObject(i);
+                                mExos.add(new Exercice(obj.getInt("id"),obj.getString("name"),obj.getString("video")) );
+                                copyExos.add(new Exercice(obj.getInt("id"),obj.getString("name"),obj.getString("video")));
+                               //mExosUrl.add(response.getJSONArray("exercises").getJSONObject(i).getString("video"));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
