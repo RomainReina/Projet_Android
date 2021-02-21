@@ -19,9 +19,9 @@ import pl.pawelkleczkowski.customgauge.CustomGauge;
 
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener, View.OnClickListener {
 
-    //TODO utilisation parcable pour récupérer plussieurs donées en passant de login à main
-    //TODO bdd elle fait quoi ?
     //TODO esthétisme page d'accueil
+    //TODO d'abord page login puis redirection si nécessaire vers register
+    //TODO CComparer les usernames dans la bdd pour register et login
     
 
     Executor executor = Executors.newSingleThreadExecutor();
