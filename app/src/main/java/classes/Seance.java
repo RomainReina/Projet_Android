@@ -6,15 +6,14 @@ public class Seance {
 
     private int mId;
     private String mName;
-    private List<Exercice> mExos;
-    private List<Integer> mSets;
+    private List<Day> mDays;
 
-    public Seance(int id, String name, List<Exercice> exos, List<Integer> sets)
+
+    public Seance(int id, String name,List<Day> days)
     {
         this.mId=id;
         this.mName=name;
-        this.mExos=exos;
-        this.mSets=sets;
+        this.mDays=days;
     }
 
     public int getmId() {
@@ -26,11 +25,7 @@ public class Seance {
     }
 
 
-    public List<Exercice> getmExos() {
-        return mExos;
-    }
-
-    public List<Integer> getmSets(){
-        return mSets;
+    public List<Day> getmDays() {
+        return mDays;
     }
 }

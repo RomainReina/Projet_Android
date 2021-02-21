@@ -148,6 +148,7 @@ public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHo
                         try {
                             for (int i = 0; i < response.getJSONArray("exercises").length(); i++) {
                                 JSONObject obj=response.getJSONArray("exercises").getJSONObject(i);
+                                Log.i("fzs", String.valueOf(response));
                                 mExos.add(new Exercice(obj.getInt("id"),obj.getString("name"),obj.getString("video")) );
                                 copyExos.add(new Exercice(obj.getInt("id"),obj.getString("name"),obj.getString("video")));
                                //mExosUrl.add(response.getJSONArray("exercises").getJSONObject(i).getString("video"));

@@ -2,6 +2,7 @@ package com.example.projet_android;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.TextView;
@@ -10,14 +11,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import fragments.DaysAdapter;
 import fragments.SeanceAdapter;
 
 public class SeanceItemActivity extends AppCompatActivity {
 
 
     RecyclerView mRecyclerView;
-    private SeanceAdapter.RecyclerViewClickListener listener;
-    SeanceAdapter adapter;
+    private DaysAdapter.RecyclerViewClickListener listener;
+    DaysAdapter adapter;
 
 
     @Override
@@ -33,7 +35,9 @@ public class SeanceItemActivity extends AppCompatActivity {
         /*TextView descView = (TextView) findViewById(R.id.exerciceDesc);
         TextView statView = (TextView) findViewById(R.id.exerciceStat);*/
         //WebView webView = (WebView) findViewById(R.id.webView);
+        String URL = "https://raw.githubusercontent.com/julianshapiro/julian.com/master/muscle/workout.json";
 
+        mRecyclerView = findViewById(R.id.daysList);
 
         if (intent!=null)
         {
@@ -49,9 +53,15 @@ public class SeanceItemActivity extends AppCompatActivity {
                 webSettings.setJavaScriptEnabled(true);
                 webView.loadUrl(exoVideo);*/
                 seanceView.setText(seanceName);
+                adapter= new DaysAdapter(URL,this,listener,seanceName);
+
 
             }
         }
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
 
 
 

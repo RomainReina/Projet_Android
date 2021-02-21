@@ -18,4 +18,5 @@
     <string name="seancename">seanceName</string>
     <string name="exsets">exSets</string>
     <string name="voir_exercice">Voir Exercice</string>
+    <string name="textview">TextView</string>
 </resources>
