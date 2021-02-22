@@ -3,6 +3,7 @@ package com.example.projet_android;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,7 +20,7 @@ public class Register extends Activity implements View.OnClickListener {
     EditText userID,password,weight,height;
     Button button;
     Button logButton;
-    List<String> usernames = new ArrayList<>();
+    public List<String> usernames = new ArrayList<>();
 
 
     Executor executor = Executors.newSingleThreadExecutor();
@@ -45,12 +46,16 @@ public class Register extends Activity implements View.OnClickListener {
         public boolean CheckUsername()
         {
             String input = userID.getText().toString();
+            Log.i("check",input);
+            Log.i("check",String.valueOf(usernames.contains(input)));
+            if(usernames.size() > 0)
+            Log.i("check",String.valueOf(usernames.get(usernames.size()-1) == input));
             if(input.isEmpty())
             {
                 userID.setError("Field cannot be empty");
                 return false;
             }
-            else if (usernames.contains(userID))
+            else if (usernames.contains(input))
                 {
                     userID.setError("Username is already taken");
                     return  false;
@@ -130,26 +135,30 @@ public class Register extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         if(v.getId() == R.id.RegisterButton)
         {
-            UserDatabase db = Room.databaseBuilder(this, UserDatabase.class, "UserDatabase.db").build();
-            User user = new User();
-
 
             if(!CheckUsername() || !Checkpassword() || !CheckWeight() || !CheckHeight())
             {
                 return;
             }
-            String userIDText = userID.getText().toString().trim();
+
+            String userIDText = userID.getText().toString();
             String passwordtext = password.getText().toString();
             String weightText = weight.getText().toString();
             String heightText = height.getText().toString();
 
             executor.execute(()->
-            {
+        {
+            UserDatabase db = Room.databaseBuilder(this, UserDatabase.class, "UserDatabase.db").build();
+
+
+                User user = new User();
                 user.setUsername(userIDText);
                 user.setPassword(passwordtext);
                 user.setWeight(Integer.parseInt(weightText));
                 user.setHeight(Integer.parseInt(heightText));
                 db.userDAO().insert(user);
+                usernames.addAll(db.userDAO().allUsername());
+                Log.i("username",usernames.toString());
 
                 startActivity(new Intent(this,MainActivity.class).putExtra("username",userIDText));
             });
