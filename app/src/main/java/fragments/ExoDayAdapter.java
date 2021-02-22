@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
@@ -37,9 +38,9 @@ import classes.Exercice;
  */
 public class ExoDayAdapter extends RecyclerView.Adapter<ExoDayAdapter.ViewHolder>{
 
-    private List<Day> mDays=new ArrayList<>();
+    private List<Day> mDays;
     private ArrayList<Exercice> mExos=new ArrayList<>();
-    private ArrayList<Exercice> copyExos=new ArrayList<>();
+    private ArrayList<Exercice> copyExos;
     private int mNumDay;
     private Context mContext;
     public ExoDayAdapter(List<Day> days, int numDay,Context context, String url,ArrayList<Exercice> exos) {
@@ -60,8 +61,10 @@ public class ExoDayAdapter extends RecyclerView.Adapter<ExoDayAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.name.setText(copyExos.get(position).getName());
-        holder.sets.setText(String.valueOf(mExos.get(position).getSets()));
+        Exercice exo=recupExoById(mExos.get(position).getId());
+        holder.name.setText(exo.getName());
+        holder.sets.setText(String.valueOf(mExos.get(position).getSets())+" séries");
+        holder.video=exo.getVideo();
     }
 
 
@@ -71,22 +74,29 @@ public class ExoDayAdapter extends RecyclerView.Adapter<ExoDayAdapter.ViewHolder
     }
 
 
-    public interface RecyclerViewClickListener
-    {
-        void onClick(View v, int position);
-    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView name;
         public final TextView sets;
         public final Button exoShow;
         public final WebView webView;
+        public String video;
+
         public ViewHolder(View view) {
             super(view);
             name = view.findViewById(R.id.exoDayName);
             sets = view.findViewById(R.id.setsNumber);
             exoShow = view.findViewById(R.id.viewExo);
             webView = view.findViewById(R.id.dayExoVimeo);
+            exoShow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    WebSettings webSettings = webView.getSettings();
+                    webSettings.setJavaScriptEnabled(true);
+
+                    webView.loadUrl(video);
+                }
+            });
 
         }
 
@@ -98,6 +108,14 @@ public class ExoDayAdapter extends RecyclerView.Adapter<ExoDayAdapter.ViewHolder
 
     }
 
+    private Exercice recupExoById(int id){
+        for(int i=0; i<copyExos.size();i++){
+            if(copyExos.get(i).getId()==id){
+                return copyExos.get(i);
+            }
+        }
+        return new Exercice(0,"null","null");
+    }
 
 
 
