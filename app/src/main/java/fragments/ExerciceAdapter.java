@@ -132,7 +132,7 @@ public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHo
         }
     }
 
-    private void recupExos(String url) {
+    public void recupExos(String url) {
         RequestQueue requestQueue = Volley.newRequestQueue(mContext);
         Gson gson = new Gson();
         JsonObjectRequest objectRequest = new JsonObjectRequest(

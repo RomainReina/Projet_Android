@@ -52,6 +52,8 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
         mSeanceId=seanceId;
         recupDays(url);
         notifyDataSetChanged();
+        recupExos(url);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -64,8 +66,7 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.name.setText("Day "+String.valueOf(mDays.get(position).getId()+1));
-        ExoDayAdapter exoDayAdapter =new ExoDayAdapter(mDays,position);
-        Log.i("test", String.valueOf(exoDayAdapter.mDays));
+        ExoDayAdapter exoDayAdapter =new ExoDayAdapter(mDays,position,mContext,mUrl,mExos);
         holder.dayExoRecyclerView.setAdapter(exoDayAdapter);
     }
 
@@ -129,11 +130,32 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
 
         requestQueue.add(objectRequest);
     }
+    private void recupExos(String url) {
+        RequestQueue requestQueue = Volley.newRequestQueue(mContext);
+        Gson gson = new Gson();
+        JsonObjectRequest objectRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Type mExosType = new TypeToken<ArrayList<Exercice>>() {}.getType();
+                        try {
+                            mExos = gson.fromJson(String.valueOf(response.getJSONArray("exercises")), mExosType);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Rest Response", error.toString());
+                    }
+                });
 
-
-
-    /*private List<Day> recupDays(String seance){
-
-    }*/
+        requestQueue.add(objectRequest);
+    }
 
 }

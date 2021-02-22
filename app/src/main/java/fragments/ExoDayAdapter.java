@@ -12,8 +12,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.projet_android.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,14 +37,18 @@ import classes.Exercice;
  */
 public class ExoDayAdapter extends RecyclerView.Adapter<ExoDayAdapter.ViewHolder>{
 
-    public List<Day> mDays=new ArrayList<>();
-    public ArrayList<Exercice> mExos=new ArrayList<>();
+    private List<Day> mDays=new ArrayList<>();
+    private ArrayList<Exercice> mExos=new ArrayList<>();
+    private ArrayList<Exercice> copyExos=new ArrayList<>();
     private int mNumDay;
-
-    public ExoDayAdapter(List<Day> days, int numDay) {
+    private Context mContext;
+    public ExoDayAdapter(List<Day> days, int numDay,Context context, String url,ArrayList<Exercice> exos) {
         mDays=days;
         mNumDay=numDay;
+        mContext=context;
         mExos.addAll(mDays.get(numDay).getExos());
+        copyExos=exos;
+
     }
 
     @Override
@@ -44,7 +60,7 @@ public class ExoDayAdapter extends RecyclerView.Adapter<ExoDayAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.name.setText(String.valueOf(mExos.get(position).getId()));
+        holder.name.setText(copyExos.get(position).getName());
         holder.sets.setText(String.valueOf(mExos.get(position).getSets()));
     }
 
@@ -83,15 +99,6 @@ public class ExoDayAdapter extends RecyclerView.Adapter<ExoDayAdapter.ViewHolder
     }
 
 
-
-    /*private Exercice recupExoById(int id){
-        for(int i=0;i<mExos.size();i++){
-            if(mExos.get(i).getId()==id){
-                return mExos.get(i);
-            }
-        }
-        return new Exercice(0,"null","null");
-    }*/
 
 
 }
