@@ -6,42 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--<androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/exoCardList"
-        android:layout_width="373dp"
-        android:layout_height="621dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seance">
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="423dp"
-            android:layout_height="149dp">
-
-            <Button
-                android:id="@+id/voirEx"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/voir_exercice" />
-
-            <TextView
-                android:id="@+id/exName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/nomex" />
-
-            <TextView
-                android:id="@+id/exSets"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/exsets" />
-        </androidx.cardview.widget.CardView>
-    </androidx.recyclerview.widget.RecyclerView>-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/daysList"
@@ -50,10 +14,18 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seance" />
+        app:layout_constraintTop_toBottomOf="@+id/seance" >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/exoDayList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+    </androidx.recyclerview.widget.RecyclerView>
 
     <TextView
         android:id="@+id/seance"

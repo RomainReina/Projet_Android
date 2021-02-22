@@ -36,4 +36,17 @@ public class Exercice {
     public String getVideo() {
         return video;
     }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public int getSets() {
+        return sets;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
 }

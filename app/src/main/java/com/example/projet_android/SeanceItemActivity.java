@@ -5,21 +5,27 @@ import android.os.Bundle;
 import android.util.Log;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import classes.Exercice;
 import fragments.DaysAdapter;
+import fragments.ExoDayAdapter;
 import fragments.SeanceAdapter;
 
 public class SeanceItemActivity extends AppCompatActivity {
 
 
-    RecyclerView mRecyclerView;
+    RecyclerView dayListRecyclerView;
+    RecyclerView dayExoRecyclerView;
     private DaysAdapter.RecyclerViewClickListener listener;
     DaysAdapter adapter;
+    ExoDayAdapter exoDayAdapter;
 
 
     @Override
@@ -37,7 +43,8 @@ public class SeanceItemActivity extends AppCompatActivity {
         //WebView webView = (WebView) findViewById(R.id.webView);
         String URL = "https://raw.githubusercontent.com/julianshapiro/julian.com/master/muscle/workout.json";
 
-        mRecyclerView = findViewById(R.id.daysList);
+        dayListRecyclerView = findViewById(R.id.daysList);
+        dayExoRecyclerView=findViewById(R.id.exoDayList);
 
         if (intent!=null)
         {
@@ -59,9 +66,17 @@ public class SeanceItemActivity extends AppCompatActivity {
 
             }
         }
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(adapter);
+        //dayListRecyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+        /*for(int i=0;i<adapter.mDays.get(0).getExos().size();i++){
+            Log.i("exoId", String.valueOf(adapter.mDays.get(0).getExos().get(i).getId()));
+            Log.i("exoWeight", String.valueOf(adapter.mDays.get(0).getExos().get(i).getWeight()));
+            Log.i("exoSets", String.valueOf(adapter.mDays.get(0).getExos().get(i).getSets()));
+            Log.i("exoUnit", String.valueOf(adapter.mDays.get(0).getExos().get(i).getUnit()));
+        }*/
+
+        //exoDayAdapter=new ExoDayAdapter();
+
 
 
 

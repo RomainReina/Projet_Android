@@ -20,23 +20,20 @@ import com.example.projet_android.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 import classes.Day;
 import classes.Exercice;
-import classes.Seance;
 
 /**
  * TODO: Replace the implementation with code for your data type.
  */
-public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
+public class ExoDayAdapter extends RecyclerView.Adapter<ExoDayAdapter.ViewHolder>{
 
     private String mUrl;
     public List<Day> mDays=new ArrayList<>();
@@ -45,7 +42,7 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
     private Context mContext;
     private RecyclerViewClickListener mListener;
 
-    public DaysAdapter(String url, Context context, RecyclerViewClickListener listener,int seanceId) {
+    public ExoDayAdapter(String url, Context context, RecyclerViewClickListener listener, int seanceId) {
 
         mUrl = url;
         mContext = context;
@@ -58,7 +55,7 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.exercice_adapter, parent, false);
+                .inflate(R.layout.exercice_day, parent, false);
         return new ViewHolder(view);
     }
 
@@ -125,7 +122,14 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
         requestQueue.add(objectRequest);
     }
 
-
+    private Exercice recupExoById(int id){
+        for(int i=0;i<mExos.size();i++){
+            if(mExos.get(i).getId()==id){
+                return mExos.get(i);
+            }
+        }
+        return new Exercice(0,"null","null");
+    }
 
     /*private List<Day> recupDays(String seance){
 
