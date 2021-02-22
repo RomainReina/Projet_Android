@@ -4,28 +4,28 @@ import java.util.List;
 
 public class    Seance {
 
-    private int mId;
-    private String mName;
-    private List<Day> mDays;
+    private int id;
+    private String name;
+    private List<Day> days;
 
 
     public Seance(int id, String name,List<Day> days)
     {
-        this.mId=id;
-        this.mName=name;
-        this.mDays=days;
+        this.id=id;
+        this.name=name;
+        this.days=days;
     }
 
-    public int getmId() {
-        return mId;
+    public int getId() {
+        return id;
     }
 
-    public String getmName() {
-        return mName;
+    public String getName() {
+        return name;
     }
 
 
-    public List<Day> getmDays() {
-        return mDays;
+    public List<Day> getDays() {
+        return days;
     }
 }

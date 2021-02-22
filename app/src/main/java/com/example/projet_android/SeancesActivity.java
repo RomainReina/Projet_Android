@@ -56,8 +56,8 @@ public class SeancesActivity extends AppCompatActivity {
     {
         Intent intent= new Intent(this, SeanceItemActivity.class);
         Bundle extras = new Bundle();
-        String seances = adapter.mSeances.get(idSeance);
-        extras.putString("Seance",seances);
+        String seancesName = adapter.mSeances.get(idSeance).getName();
+        extras.putString("Seance",seancesName);
         intent.putExtras(extras);
         return intent;
     }

@@ -18,13 +18,19 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+
+import classes.Exercice;
+import classes.Seance;
 
 /**
  * TODO: Replace the implementation with code for your data type.
@@ -32,7 +38,7 @@ import java.util.List;
 public class SeanceAdapter extends RecyclerView.Adapter<SeanceAdapter.ViewHolder>{
 
     private String mUrl;
-    public ArrayList<String> mSeances=new ArrayList<>();
+    public ArrayList<Seance> mSeances=new ArrayList<>();
     private Context mContext;
     private RecyclerViewClickListener mListener;
 
@@ -54,7 +60,7 @@ public class SeanceAdapter extends RecyclerView.Adapter<SeanceAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.name.setText(mSeances.get(position));
+        holder.name.setText(mSeances.get(position).getName());
     }
 
 
@@ -92,6 +98,7 @@ public class SeanceAdapter extends RecyclerView.Adapter<SeanceAdapter.ViewHolder
 
     private void recupSeances(String url) {
         RequestQueue requestQueue = Volley.newRequestQueue(mContext);
+        Gson gson = new Gson();
         JsonObjectRequest objectRequest = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
@@ -100,9 +107,8 @@ public class SeanceAdapter extends RecyclerView.Adapter<SeanceAdapter.ViewHolder
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            for (int i = 0; i < response.getJSONArray("plans").length(); i++) {
-                                mSeances.add(response.getJSONArray("plans").getJSONObject(i).getString("name"));
-                            }
+                            Type mSeancesType = new TypeToken<ArrayList<Seance>>() {}.getType();
+                            mSeances=gson.fromJson(String.valueOf(response.getJSONArray("plans")), mSeancesType);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
