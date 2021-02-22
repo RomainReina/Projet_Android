@@ -21,10 +21,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.projet_android.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +44,6 @@ public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHo
     private String mUrl;
     public ArrayList<Exercice> copyExos=new ArrayList<>();
     public ArrayList<Exercice> mExos = new ArrayList<>();
-    //public ArrayList<String> mExosUrl = new ArrayList<String>();
     private Context mContext;
     private RecyclerViewClickListener mListener;
 
@@ -61,7 +64,7 @@ public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.name.setText(mExos.get(position).getmName());
+        holder.name.setText(mExos.get(position).getName());
     }
 
 
@@ -88,7 +91,7 @@ public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHo
                 String filterPattern = constraint.toString().toLowerCase().trim();
                 for (Exercice exo : copyExos)
                 {
-                    if (exo.getmName().toLowerCase().contains(filterPattern))
+                    if (exo.getName().toLowerCase().contains(filterPattern))
                     {
                         filteredList.add(exo);
                     }
@@ -137,7 +140,7 @@ public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHo
 
     private void recupExos(String url) {
         RequestQueue requestQueue = Volley.newRequestQueue(mContext);
-
+        Gson gson = new Gson();
         JsonObjectRequest objectRequest = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
@@ -145,14 +148,10 @@ public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHo
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        Type mExosType = new TypeToken<ArrayList<Exercice>>() {}.getType();
                         try {
-                            for (int i = 0; i < response.getJSONArray("exercises").length(); i++) {
-                                JSONObject obj=response.getJSONArray("exercises").getJSONObject(i);
-                                Log.i("fzs", String.valueOf(response));
-                                mExos.add(new Exercice(obj.getInt("id"),obj.getString("name"),obj.getString("video")) );
-                                copyExos.add(new Exercice(obj.getInt("id"),obj.getString("name"),obj.getString("video")));
-                               //mExosUrl.add(response.getJSONArray("exercises").getJSONObject(i).getString("video"));
-                            }
+                            mExos = gson.fromJson(String.valueOf(response.getJSONArray("exercises")), mExosType);
+                            copyExos.addAll(mExos);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

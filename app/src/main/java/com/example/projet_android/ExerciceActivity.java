@@ -95,8 +95,8 @@ public class ExerciceActivity extends AppCompatActivity {
     {
         Intent intent= new Intent(this, ExerciceItemActivity.class);
         Bundle extras = new Bundle();
-        String name = adapter.mExos.get(idExo).getmName();
-        String video=adapter.mExos.get(idExo).getmUrl();
+        String name = adapter.mExos.get(idExo).getName();
+        String video= adapter.mExos.get(idExo).getVideo();
         extras.putString("Name",name);
         extras.putString("Video",video);
         intent.putExtras(extras);

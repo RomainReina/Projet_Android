@@ -140,7 +140,7 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
 
     private Exercice recupExoById(int id){
         for(int i=0;i<mExos.size();i++){
-            if(mExos.get(i).getmId()==id){
+            if(mExos.get(i).getId()==id){
                 return mExos.get(i);
             }
         }

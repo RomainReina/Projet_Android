@@ -2,7 +2,7 @@ package classes;
 
 import java.util.List;
 
-public class Seance {
+public class    Seance {
 
     private int mId;
     private String mName;

@@ -5,6 +5,7 @@ import java.util.List;
 public class Day {
 
     private int mId;
+    private String mName;
     private List<Exercice> mExos;
     private List<Integer> mSets;
 

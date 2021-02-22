@@ -2,25 +2,38 @@ package classes;
 
 public class Exercice {
 
-    private int mId;
-    private String mName;
-    private String mUrl;
+    private int id;
+    private String name;
+    private String video;
 
-    public Exercice(int id, String name, String url){
-        this.mId=id;
-        this.mName=name;
-        this.mUrl=url;
+    private int weight;
+    private int sets;
+    private String unit;
+
+
+    public Exercice(int id, String name, String video){
+        this.id=id;
+        this.name=name;
+        this.video=video;
     }
 
-    public int getmId() {
-        return mId;
+    public Exercice(int id, int weight, int sets, String unit){
+        this.id=id;
+        this.weight=weight;
+        this.sets=sets;
+        this.unit=unit;
     }
 
-    public String getmName() {
-        return mName;
+
+    public int getId() {
+        return id;
     }
 
-    public String getmUrl() {
-        return mUrl;
+    public String getName() {
+        return name;
+    }
+
+    public String getVideo() {
+        return video;
     }
 }
