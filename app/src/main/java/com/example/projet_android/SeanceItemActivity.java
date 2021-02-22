@@ -44,7 +44,8 @@ public class SeanceItemActivity extends AppCompatActivity {
             Bundle extras =intent.getExtras();
             if(extras!=null)
             {
-                String seanceName= extras.getString("Seance");
+                String seanceName= extras.getString("SeanceName");
+                int seanceId=extras.getInt("SeanceId");
                 //String exoVideo= extras.getString("Video");
                 /*String exoDesc= extras.getString("Desc");
                 String exoStat= extras.getString("Stats");*/
@@ -53,7 +54,7 @@ public class SeanceItemActivity extends AppCompatActivity {
                 webSettings.setJavaScriptEnabled(true);
                 webView.loadUrl(exoVideo);*/
                 seanceView.setText(seanceName);
-                adapter= new DaysAdapter(URL,this,listener,seanceName);
+                adapter= new DaysAdapter(URL,this,listener,seanceId);
 
 
             }

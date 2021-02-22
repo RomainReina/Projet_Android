@@ -4,26 +4,26 @@ import java.util.List;
 
 public class Day {
 
-    private int mId;
-    private String mName;
-    private List<Exercice> mExos;
-    private List<Integer> mSets;
+    private int id;
+    private String name;
+    private List<Exercice> exercises;
 
-    public Day(int id, List<Exercice> exos, List<Integer> sets){
-        this.mId=id;
-        this.mExos=exos;
-        this.mSets=sets;
+
+    public Day(int id, String name, List<Exercice> exercises){
+        this.id=id;
+        this.name=name;
+        this.exercises=exercises;
     }
 
-    public int getmId() {
-        return mId;
+    public int getId() {
+        return id;
     }
 
-    public List<Exercice> getmExos() {
-        return mExos;
+    public String getName() {
+        return name;
+    }
+    public List<Exercice> getExos() {
+        return exercises;
     }
 
-    public List<Integer> getmSets() {
-        return mSets;
-    }
 }
