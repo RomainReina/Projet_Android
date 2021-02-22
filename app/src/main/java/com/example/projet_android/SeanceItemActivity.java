@@ -44,7 +44,6 @@ public class SeanceItemActivity extends AppCompatActivity {
         String URL = "https://raw.githubusercontent.com/julianshapiro/julian.com/master/muscle/workout.json";
 
         dayListRecyclerView = findViewById(R.id.daysList);
-        dayExoRecyclerView=findViewById(R.id.exoDayList);
 
         if (intent!=null)
         {
@@ -66,7 +65,7 @@ public class SeanceItemActivity extends AppCompatActivity {
 
             }
         }
-        //dayListRecyclerView.setAdapter(adapter);
+        dayListRecyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         /*for(int i=0;i<adapter.mDays.get(0).getExos().size();i++){
             Log.i("exoId", String.valueOf(adapter.mDays.get(0).getExos().get(i).getId()));

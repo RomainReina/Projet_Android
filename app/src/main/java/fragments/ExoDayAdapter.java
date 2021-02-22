@@ -5,25 +5,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.projet_android.R;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,21 +25,14 @@ import classes.Exercice;
  */
 public class ExoDayAdapter extends RecyclerView.Adapter<ExoDayAdapter.ViewHolder>{
 
-    private String mUrl;
     public List<Day> mDays=new ArrayList<>();
     public ArrayList<Exercice> mExos=new ArrayList<>();
-    private int mSeanceId;
-    private Context mContext;
-    private RecyclerViewClickListener mListener;
+    private int mNumDay;
 
-    public ExoDayAdapter(String url, Context context, RecyclerViewClickListener listener, int seanceId) {
-
-        mUrl = url;
-        mContext = context;
-        mListener = listener;
-        mSeanceId=seanceId;
-        recupDays(url);
-        notifyDataSetChanged();
+    public ExoDayAdapter(List<Day> days, int numDay) {
+        mDays=days;
+        mNumDay=numDay;
+        mExos.addAll(mDays.get(numDay).getExos());
     }
 
     @Override
@@ -61,13 +44,14 @@ public class ExoDayAdapter extends RecyclerView.Adapter<ExoDayAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.name.setText("Day "+String.valueOf(mDays.get(position).getId()+1));
+        holder.name.setText(String.valueOf(mExos.get(position).getId()));
+        holder.sets.setText(String.valueOf(mExos.get(position).getSets()));
     }
 
 
     @Override
     public int getItemCount() {
-        return mDays.size();
+        return mExos.size();
     }
 
 
@@ -78,10 +62,15 @@ public class ExoDayAdapter extends RecyclerView.Adapter<ExoDayAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView name;
-
+        public final TextView sets;
+        public final Button exoShow;
+        public final WebView webView;
         public ViewHolder(View view) {
             super(view);
-            name = view.findViewById(R.id.exoName);
+            name = view.findViewById(R.id.exoDayName);
+            sets = view.findViewById(R.id.setsNumber);
+            exoShow = view.findViewById(R.id.viewExo);
+            webView = view.findViewById(R.id.dayExoVimeo);
 
         }
 
@@ -93,46 +82,16 @@ public class ExoDayAdapter extends RecyclerView.Adapter<ExoDayAdapter.ViewHolder
 
     }
 
-    private void recupDays(String url) {
-        RequestQueue requestQueue = Volley.newRequestQueue(mContext);
-        Gson gson = new Gson();
-        JsonObjectRequest objectRequest = new JsonObjectRequest(
-                Request.Method.GET,
-                url,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            Type mDaysType = new TypeToken<ArrayList<Day>>() {}.getType();
-                            mDays=gson.fromJson(String.valueOf(response.getJSONArray("plans").getJSONObject(mSeanceId).getJSONArray("days")), mDaysType);
-                        }
-                        catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("Rest Response", error.toString());
-                    }
-                });
 
-        requestQueue.add(objectRequest);
-    }
 
-    private Exercice recupExoById(int id){
+    /*private Exercice recupExoById(int id){
         for(int i=0;i<mExos.size();i++){
             if(mExos.get(i).getId()==id){
                 return mExos.get(i);
             }
         }
         return new Exercice(0,"null","null");
-    }
-
-    /*private List<Day> recupDays(String seance){
-
     }*/
+
 
 }

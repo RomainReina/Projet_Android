@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
@@ -17,21 +18,19 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.projet_android.R;
+import com.example.projet_android.SeanceItemActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 import classes.Day;
 import classes.Exercice;
-import classes.Seance;
 
 /**
  * TODO: Replace the implementation with code for your data type.
@@ -58,13 +57,16 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.exercice_adapter, parent, false);
+                .inflate(R.layout.exercice_day_recycler_view, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.name.setText("Day "+String.valueOf(mDays.get(position).getId()+1));
+        ExoDayAdapter exoDayAdapter =new ExoDayAdapter(mDays,position);
+        Log.i("test", String.valueOf(exoDayAdapter.mDays));
+        holder.dayExoRecyclerView.setAdapter(exoDayAdapter);
     }
 
 
@@ -81,10 +83,13 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView name;
-
+        public final RecyclerView dayExoRecyclerView;
         public ViewHolder(View view) {
             super(view);
-            name = view.findViewById(R.id.exoName);
+            name = view.findViewById(R.id.dayNum);
+            dayExoRecyclerView=view.findViewById(R.id.exoDayList);
+            dayExoRecyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL,false));
+
 
         }
 
