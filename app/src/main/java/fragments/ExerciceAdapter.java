@@ -100,7 +100,6 @@ public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHo
         protected void publishResults(CharSequence constraint, FilterResults results) {
             mExos.clear();
             mExos.addAll((List)results.values);
-            notifyDataSetChanged();
 
 
         }

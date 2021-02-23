@@ -51,9 +51,7 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
         mListener = listener;
         mSeanceId=seanceId;
         recupDays(url);
-        notifyDataSetChanged();
         recupExos(url);
-        notifyDataSetChanged();
     }
 
     @Override
@@ -67,6 +65,7 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.name.setText("Day "+String.valueOf(mDays.get(position).getId()+1));
         ExoDayAdapter exoDayAdapter =new ExoDayAdapter(mDays,position,mContext,mUrl,mExos);
+        exoDayAdapter.notifyDataSetChanged();
         holder.dayExoRecyclerView.setAdapter(exoDayAdapter);
     }
 

@@ -34,10 +34,11 @@ public class SeancesActivity extends AppCompatActivity {
         String URL = "https://raw.githubusercontent.com/julianshapiro/julian.com/master/muscle/workout.json";
 
         setOnClickListener();
-        adapter= new SeanceAdapter(URL,this,listener);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(adapter);
+        adapter= new SeanceAdapter(URL,getBaseContext(),listener);
         adapter.notifyDataSetChanged();
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+        mRecyclerView.setAdapter(adapter);
+
 
         
     }

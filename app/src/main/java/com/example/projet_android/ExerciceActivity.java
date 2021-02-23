@@ -47,14 +47,17 @@ public class ExerciceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercice);
         mRecyclerView = findViewById(R.id.exoList);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
 
         String URL = "https://raw.githubusercontent.com/julianshapiro/julian.com/master/muscle/workout.json";
 
         setOnClickListener();
-        adapter= new ExerciceAdapter(URL,this,listener);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(adapter);
+        adapter= new ExerciceAdapter(URL,getBaseContext(),listener);
+
         adapter.notifyDataSetChanged();
+        Log.i("set", String.valueOf(adapter.mExos));
+        mRecyclerView.setAdapter(adapter);
+
 
 
         

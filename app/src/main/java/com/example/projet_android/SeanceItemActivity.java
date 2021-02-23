@@ -60,13 +60,12 @@ public class SeanceItemActivity extends AppCompatActivity {
                 webSettings.setJavaScriptEnabled(true);
                 webView.loadUrl(exoVideo);*/
                 seanceView.setText(seanceName);
-                adapter= new DaysAdapter(URL,this,listener,seanceId);
-
+                adapter= new DaysAdapter(URL,getBaseContext(),listener,seanceId);
+                adapter.notifyDataSetChanged();
 
             }
         }
         dayListRecyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
         /*for(int i=0;i<adapter.mDays.get(0).getExos().size();i++){
             Log.i("exoId", String.valueOf(adapter.mDays.get(0).getExos().get(i).getId()));
             Log.i("exoWeight", String.valueOf(adapter.mDays.get(0).getExos().get(i).getWeight()));
