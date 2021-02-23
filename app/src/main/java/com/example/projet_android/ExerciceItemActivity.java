@@ -17,7 +17,6 @@ import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.gson.Gson;
 
 import org.w3c.dom.Text;
 
@@ -27,7 +26,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import fragments.ExercicesItemFragment;
 
 public class ExerciceItemActivity extends AppCompatActivity {
 
@@ -40,8 +38,6 @@ public class ExerciceItemActivity extends AppCompatActivity {
         setContentView(R.layout.fragment_exercices_item);
         Intent intent = getIntent();
         TextView nameView = (TextView) findViewById(R.id.exerciceName);
-        /*TextView descView = (TextView) findViewById(R.id.exerciceDesc);
-        TextView statView = (TextView) findViewById(R.id.exerciceStat);*/
         WebView webView = (WebView) findViewById(R.id.webView);
 
 
@@ -52,8 +48,6 @@ public class ExerciceItemActivity extends AppCompatActivity {
             {
                 String exoName= extras.getString("Name");
                 String exoVideo= extras.getString("Video");
-                /*String exoDesc= extras.getString("Desc");
-                String exoStat= extras.getString("Stats");*/
                 nameView.setText(exoName);
                 WebSettings webSettings = webView.getSettings();
                 webSettings.setJavaScriptEnabled(true);
