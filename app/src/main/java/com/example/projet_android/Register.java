@@ -47,10 +47,6 @@ public class Register extends Activity implements View.OnClickListener {
         public boolean CheckUsername()
         {
             String input = userID.getText().toString();
-            Log.i("check",input);
-            Log.i("check",String.valueOf(usernames.contains(input)));
-            if(usernames.size() > 0)
-            Log.i("check",String.valueOf(usernames.get(usernames.size()-1) == input));
             if(input.isEmpty())
             {
                 userID.setError("Field cannot be empty");
@@ -59,7 +55,6 @@ public class Register extends Activity implements View.OnClickListener {
             else if (usernames.contains(input))
             {
                 userID.setError("Username is already taken");
-                Log.i("ok","ware in");
                 return false;
             }
             else
@@ -137,24 +132,27 @@ public class Register extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         if(v.getId() == R.id.RegisterButton)
         {
+            String userIDText = userID.getText().toString();
+            String passwordtext = password.getText().toString();
+            String weightText = weight.getText().toString();
+            String heightText = height.getText().toString();
             UserDatabase db = Room.databaseBuilder(this, UserDatabase.class, "UserDatabase.db").build();
-            executor2.execute(() ->
+            /*executor2.execute(() ->
             {
                 Log.i("ok", "Inside");
-                usernames=db.userDAO().allUsername();
+                //usernames=db.userDAO().allUsername();
                 Log.i("usernames", usernames.toString());
+
             });
 
-            Log.i("ok",usernames.toString());
+            Log.i("userre",usernames.toString());*/
+
             if (!CheckUsername() || !Checkpassword() || !CheckWeight() || !CheckHeight())
             {
                 return;
             }
 
-            String userIDText = userID.getText().toString();
-            String passwordtext = password.getText().toString();
-            String weightText = weight.getText().toString();
-            String heightText = height.getText().toString();
+
 
             executor.execute(()->
         {
