@@ -175,7 +175,13 @@ public class Register extends Activity implements View.OnClickListener {
 
         else if(v.getId() == R.id.LogButton)
         {
-            startActivity(new Intent(this,Login.class));
+            Intent intent = new Intent(this,Login.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("username",userID.getText().toString());
+            bundle.putString("password",password.getText().toString());
+            intent.putExtras(bundle);
+
+            startActivity(intent);
         }
 
     }

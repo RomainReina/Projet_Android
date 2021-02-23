@@ -5,10 +5,13 @@ import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -16,6 +19,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     EditText userID,password;
     Executor executor = Executors.newSingleThreadExecutor();
+    public List<String> usernames = new ArrayList();
+    public String checkPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +36,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     public boolean CheckUsername()
     {
-        executor.execute(()->
-        {
-            UserDatabase db = Room.databaseBuilder(this, UserDatabase.class, "UserDatabase.db").build();
-            //usernames = db.userDAO().allUsername();
-        });
-
 
         String input = userID.getText().toString();
         if(input.isEmpty())
@@ -44,11 +43,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             userID.setError("Field cannot be empty");
             return false;
         }
-//        else if (usernames.contains(userID))
-//        {
-//            userID.setError("Username is already taken");
-//            return  false;
-//        }
+        else if (!(usernames.contains(input)))
+            {
+                userID.setError("Incorrect Username");
+                return false;
+            }
+
         else
         {
             userID.setError(null);
@@ -69,6 +69,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             password.setError("Password must contains at least 6 characters");
             return false;
         }
+
+        else if(!checkPassword.equalsIgnoreCase(input))
+        {
+            password.setError("Incorrect password");
+            return false;
+        }
         else
         {
             password.setError(null);
@@ -82,18 +88,25 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         if(v.getId() == R.id.Login)
         {
             UserDatabase db = Room.databaseBuilder(this, UserDatabase.class, "UserDatabase.db").build();
-            User user = new User();
+
+            executor.execute(() ->
+            {
+                usernames = db.userDAO().allUsername();
+                checkPassword = db.userDAO().retrievePassword(password.getText().toString());
+            });
+
 
 
             if(!CheckUsername() || !Checkpassword())
             {
                 return;
             }
-            String userIDText = userID.getText().toString().trim();
+            String userIDText = userID.getText().toString();
             String passwordtext = password.getText().toString();
 
             executor.execute(()->
             {
+                User user = new User();
                 user.setUsername(userIDText);
                 user.setPassword(passwordtext);
                 db.userDAO().insert(user);
