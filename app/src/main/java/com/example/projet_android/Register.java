@@ -24,6 +24,7 @@ public class Register extends Activity implements View.OnClickListener {
 
 
     Executor executor = Executors.newSingleThreadExecutor();
+    Executor executor2 = Executors.newSingleThreadExecutor();
 
 
 
@@ -56,10 +57,11 @@ public class Register extends Activity implements View.OnClickListener {
                 return false;
             }
             else if (usernames.contains(input))
-                {
-                    userID.setError("Username is already taken");
-                    return  false;
-                }
+            {
+                userID.setError("Username is already taken");
+                Log.i("ok","ware in");
+                return false;
+            }
             else
                 {
                     userID.setError(null);
@@ -130,13 +132,21 @@ public class Register extends Activity implements View.OnClickListener {
                 return true;
             }
         }
-
+//TODO il faut que tt les champs soient identiques
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.RegisterButton)
         {
+            UserDatabase db = Room.databaseBuilder(this, UserDatabase.class, "UserDatabase.db").build();
+            executor2.execute(() ->
+            {
+                Log.i("ok", "Inside");
+                usernames=db.userDAO().allUsername();
+                Log.i("usernames", usernames.toString());
+            });
 
-            if(!CheckUsername() || !Checkpassword() || !CheckWeight() || !CheckHeight())
+            Log.i("ok",usernames.toString());
+            if (!CheckUsername() || !Checkpassword() || !CheckWeight() || !CheckHeight())
             {
                 return;
             }
@@ -148,7 +158,7 @@ public class Register extends Activity implements View.OnClickListener {
 
             executor.execute(()->
         {
-            UserDatabase db = Room.databaseBuilder(this, UserDatabase.class, "UserDatabase.db").build();
+
 
 
                 User user = new User();
@@ -157,8 +167,6 @@ public class Register extends Activity implements View.OnClickListener {
                 user.setWeight(Integer.parseInt(weightText));
                 user.setHeight(Integer.parseInt(heightText));
                 db.userDAO().insert(user);
-                usernames.addAll(db.userDAO().allUsername());
-                Log.i("username",usernames.toString());
 
                 startActivity(new Intent(this,MainActivity.class).putExtra("username",userIDText));
             });
