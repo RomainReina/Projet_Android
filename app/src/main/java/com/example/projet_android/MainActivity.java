@@ -5,6 +5,7 @@ import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +26,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     
 
     Executor executor = Executors.newSingleThreadExecutor();
-    public int value;
     public String id;
 
 
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         setTheme(R.style.Theme_Design_Light_NoActionBar);              // on cache l'action barre
         setContentView(R.layout.home_page_layout);                  // on charge le layout de la page d'accueil
         Button button1 = findViewById(R.id.MenuButton);             // on récupère la référence du composant
-        button1.setOnClickListener(this);// on crée un listener pour le compposant pour gérer son intéraction
+        button1.setOnClickListener(this);// on crée un listener pour le composant pour gérer son intéraction
         Button LogoutButton = findViewById(R.id.LogoutButton);
         LogoutButton.setOnClickListener(this);
         TextView stepText = findViewById(R.id.NombreDePasTextView);
@@ -49,19 +49,18 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         executor.execute(()->
         {
 
-              User user;
-              user = db.userDAO().retrieveUserInfo(getIntent().getStringExtra("username"));
-//            user.setUsername("pat");
-//            user.setPassword("password");
-//            user.setSteps("10");
-//            user.setHeight(1.80);
-//            user.setWeight(180);
-//            value = user.ComputeIMC();
-
-            welcomeTextView.setText(user.getUsername());
-            stepText.setText("15"); //UI manipulation, forbidden in background thread
-            imcTextView.setText(String.valueOf(value));
-            gauge.setValue(value);
+            User user;
+            user = db.userDAO().retrieveUserInfo(getIntent().getStringExtra("username"));
+            float imc = ComputeIMC(user.getWeight(),user.getHeight());
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    welcomeTextView.setText(user.getUsername());
+                    stepText.setText("15"); //UI manipulation, forbidden in background thread
+                    imcTextView.setText(String.valueOf(imc));
+                    gauge.setValue((int)imc);
+                }
+            });
 
         });
     }
@@ -103,6 +102,11 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         }
 
 
+    }
+
+    public float ComputeIMC(double weight, double height)
+    {
+        return Math.round( weight / Math.pow(height/100,2));
     }
 
 }

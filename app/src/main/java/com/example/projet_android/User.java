@@ -16,12 +16,10 @@ public class User {
     private String password;
     @ColumnInfo(name = "steps")
     private String steps;
-    @ColumnInfo(name = "imc")
-    private float imc;
     @ColumnInfo
     private double height;
     @ColumnInfo
-    private int weight;
+    private double weight;
 
     public long getId() {
         return id;
@@ -55,14 +53,6 @@ public class User {
         this.steps = steps;
     }
 
-    public float getImc() {
-        return imc;
-    }
-
-    public void setImc(float imc) {
-        this.imc = imc;
-    }
-
     public double getHeight() {
         return height;
     }
@@ -71,19 +61,14 @@ public class User {
         this.height = height;
     }
 
-    public int getWeight() {
+    public double getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(double weight) {
         this.weight = weight;
     }
-    
-    public int ComputeIMC()
-    {
-        setImc(Math.round(getWeight() / Math.pow(getHeight(),2)));
-        return ((int)getImc());
-    }
+
 
 
 }
