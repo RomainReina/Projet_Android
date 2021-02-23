@@ -38,8 +38,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
         if(v.getId() == R.id.Login)
         {
-            final String userNameText = String.valueOf(userName.getText());
-            final String passwordText = String.valueOf(password.getText());
+            String userNameText = String.valueOf(userName.getText());
+            String passwordText = String.valueOf(password.getText());
             UserDatabase db = Room.databaseBuilder(this, UserDatabase.class, "UserDatabase.db").build();
             if(userNameText.isEmpty()){
                 userName.setError("Ce champ ne peut pas être vide");
@@ -74,7 +74,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 });
 
             }
-    }
+        }
+        else if (v.getId() == R.id.CreateAccountButton)
+        {
+            startActivity(new Intent(this, Register.class));
+        }
 
 }
 }

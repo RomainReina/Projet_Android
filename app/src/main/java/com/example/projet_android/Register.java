@@ -17,7 +17,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class Register extends Activity implements View.OnClickListener {
-    EditText userID,password,weight,height;
+    EditText userName,password,weight,height;
     Button button;
     Button logButton;
     public List<String> usernames = new ArrayList<>();
@@ -33,7 +33,7 @@ public class Register extends Activity implements View.OnClickListener {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
-        userID = findViewById(R.id.user);
+        userName = findViewById(R.id.user);
         password = findViewById(R.id.password);
         weight = findViewById(R.id.weight);
         height = findViewById(R.id.height);
@@ -44,25 +44,25 @@ public class Register extends Activity implements View.OnClickListener {
 
 
         }
-        public boolean CheckUsername()
+        /*public boolean CheckUsername()
         {
-            String input = userID.getText().toString();
+            String input = userName.getText().toString();
             if(input.isEmpty())
             {
-                userID.setError("Field cannot be empty");
+                userName.setError("Field cannot be empty");
                 return false;
             }
             else if (usernames.contains(input))
             {
-                userID.setError("Username is already taken");
+                userName.setError("Username is already taken");
                 return false;
             }
             else
                 {
-                    userID.setError(null);
+                    userName.setError(null);
                     return true;
                 }
-        }
+        }*/
 
         public boolean Checkpassword()
         {
@@ -132,50 +132,54 @@ public class Register extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         if(v.getId() == R.id.RegisterButton)
         {
-            String userIDText = userID.getText().toString();
-            String passwordtext = password.getText().toString();
+            String userNameText = userName.getText().toString();
+            String passwordText = password.getText().toString();
             String weightText = weight.getText().toString();
             String heightText = height.getText().toString();
             UserDatabase db = Room.databaseBuilder(this, UserDatabase.class, "UserDatabase.db").build();
-            /*executor2.execute(() ->
-            {
-                Log.i("ok", "Inside");
-                //usernames=db.userDAO().allUsername();
-                Log.i("usernames", usernames.toString());
 
-            });
 
-            Log.i("userre",usernames.toString());*/
+            if (Checkpassword() && CheckWeight() && CheckHeight()){
+                if(userNameText.isEmpty()){
+                    userName.setError("Ce champ ne peut pas être vide");
+                }
+                else{
+                    executor.execute(()->
+                    {
+                        if(db.userDAO().retrieveUserInfo(userNameText)==null){
+                            User newUser = new User();
+                            newUser.setUsername(userNameText);
+                            newUser.setPassword(passwordText);
+                            newUser.setWeight(Integer.parseInt(weightText));
+                            newUser.setHeight(Integer.parseInt(heightText));
+                            db.userDAO().insert(newUser);
 
-            if (!CheckUsername() || !Checkpassword() || !CheckWeight() || !CheckHeight())
-            {
-                return;
+                            startActivity(new Intent(this,MainActivity.class).putExtra("username",userNameText));
+                        }
+                        else{
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    userName.setError("Ce nom d'utilisateur est déjà pris");
+                                }
+                            });
+                        }
+
+                    });
+
+                }
+                }
+
             }
 
 
 
-            executor.execute(()->
-        {
-
-
-
-                User user = new User();
-                user.setUsername(userIDText);
-                user.setPassword(passwordtext);
-                user.setWeight(Integer.parseInt(weightText));
-                user.setHeight(Integer.parseInt(heightText));
-                db.userDAO().insert(user);
-
-                startActivity(new Intent(this,MainActivity.class).putExtra("username",userIDText));
-            });
-
-        }
 
         else if(v.getId() == R.id.LogButton)
         {
             Intent intent = new Intent(this,Login.class);
             Bundle bundle = new Bundle();
-            bundle.putString("username",userID.getText().toString());
+            bundle.putString("username",userName.getText().toString());
             bundle.putString("password",password.getText().toString());
             intent.putExtras(bundle);
 
