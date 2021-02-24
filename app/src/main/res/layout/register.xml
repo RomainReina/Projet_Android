@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#334363">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
@@ -18,13 +19,14 @@
             android:id="@+id/user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#AFAFAF"
             android:hint="@string/enter_username" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout3"
-        android:layout_width="259dp"
-        android:layout_height="50dp"
+        android:layout_width="249dp"
+        android:layout_height="70dp"
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +36,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password"
             android:layout_width="248dp"
-            android:layout_height="50dp"
+            android:layout_height="70dp"
+            android:background="#AFAFAF"
             android:hint="@string/enter_password" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -43,7 +46,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="292dp"
+        android:backgroundTint="#FF5722"
         android:text="@string/register"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
@@ -51,8 +56,9 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout5"
         android:layout_width="210dp"
-        android:layout_height="53dp"
+        android:layout_height="70dp"
         android:layout_marginTop="32dp"
+        android:background="#656262"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
@@ -60,13 +66,14 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/weight"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#AFAFAF"
             android:hint="@string/enter_weight" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="208dp"
-        android:layout_height="31dp"
+        android:layout_width="216dp"
+        android:layout_height="70dp"
         android:layout_marginTop="32dp"
         app:layout_constraintBottom_toTopOf="@+id/RegisterButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -76,7 +83,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/height"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#AFAFAF"
             android:hint="@string/enter_height" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -84,7 +92,9 @@
         android:id="@+id/LogButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="#FF5722"
         android:text="@string/already_register_log_in_here"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

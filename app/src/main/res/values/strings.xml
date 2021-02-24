@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Projet_Android</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="superbibi">SuperBibi</string>
@@ -60,4 +59,7 @@
     <string name="voir_l_exercice">Voir l\'exercice</string>
     <string name="numday">numDay</string>
     <string name="seances">Séances</string>
+    <string name="todo">TODO</string>
+    <string name="obj">-Perdre 50kg \n-Abdos 8 packs \n-Entrainement saitama \n-Faire carrière en bodybuilding</string>
+    <string name="entrainement">Entrainement</string>
 </resources>

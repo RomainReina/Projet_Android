@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#334363"
     tools:context=".Login">
 
     <com.google.android.material.textfield.TextInputLayout
@@ -19,6 +20,7 @@
             android:id="@+id/loginUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#AFAFAF"
             android:hint="@string/enter_username" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -29,13 +31,14 @@
         android:layout_marginTop="64dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:passwordToggleEnabled="true"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2"
+        app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/loginPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#AFAFAF"
             android:hint="@string/enter_password" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -44,6 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="120dp"
+        android:backgroundTint="#FF5722"
         android:text="@string/log"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,6 +57,7 @@
         android:id="@+id/CreateAccountButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="#FF5722"
         android:text="@string/new_here_create_an_account"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

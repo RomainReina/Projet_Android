@@ -11,212 +11,191 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
-
-        <ImageView
-            android:id="@+id/LogoImageView"
-            android:layout_width="84dp"
-            android:layout_height="107dp"
-            android:layout_marginStart="26dp"
-            android:contentDescription="@string/logo"
-            android:src="@drawable/logo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/TitleImageView"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/TitleImageView"
-            android:layout_width="164dp"
-            android:layout_height="140dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:contentDescription="@string/title"
-            android:src="@drawable/titrebibi"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/WelcomeMessageTextView"
-            android:layout_width="80dp"
-            android:layout_height="23dp"
-            android:layout_marginEnd="16dp"
-            android:text="@string/welcome"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/TitleImageView" />
+        android:background="#BE304A8E">
 
         <TextView
             android:id="@+id/loginUsername"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
+            android:layout_width="173dp"
+            android:layout_height="37dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="44dp"
             android:text="@string/app_name"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/WelcomeMessageTextView"
-            app:layout_constraintTop_toBottomOf="@+id/TitleImageView" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout2"
-            android:layout_width="358dp"
-            android:layout_height="320dp"
-            android:background="@android:color/holo_blue_dark"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+        <TextView
+            android:id="@+id/WelcomeMessageTextView"
+            android:layout_width="101dp"
+            android:layout_height="37dp"
+            android:layout_marginStart="112dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/welcome"
+            android:textColor="@color/white"
+            android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/TitleImageView">
-
-            <ImageView
-                android:id="@+id/PodomètreImageView"
-                android:layout_width="47dp"
-                android:layout_height="51dp"
-                android:layout_marginTop="16dp"
-                android:contentDescription="@string/iconepodometre"
-                android:src="@drawable/podom_tre_ic_ne"
-                app:layout_constraintEnd_toEndOf="@+id/divider"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/PodometreTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/nombre_de_pas"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="@+id/divider"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/PodomètreImageView" />
-
-            <TextView
-                android:id="@+id/NombreDePasTextView"
-                android:layout_width="32dp"
-                android:layout_height="36dp"
-                android:text="@string/_5"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toBottomOf="@+id/divider2"
-                app:layout_constraintEnd_toEndOf="@+id/divider"
-                app:layout_constraintHorizontal_bias="0.448"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/PodometreTextView" />
-
-            <ImageView
-                android:id="@+id/IMCIconeImageView"
-                android:layout_width="55dp"
-                android:layout_height="53dp"
-                android:layout_marginTop="16dp"
-                android:contentDescription="@string/imcicone"
-                android:src="@drawable/icone_imc"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/divider"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/ObjectifIconeImageView"
-                android:layout_width="92dp"
-                android:layout_height="76dp"
-                android:contentDescription="@string/objectificone"
-                android:src="@drawable/objectif"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/NombreDePasTextView" />
-
-            <TextView
-                android:id="@+id/ObjectifTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="36dp"
-                android:text="@string/objectifs"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/ObjectifIconeImageView"
-                app:layout_constraintTop_toBottomOf="@+id/divider2" />
-
-            <View
-                android:id="@+id/divider"
-                android:layout_width="1dp"
-                android:layout_height="160dp"
-                android:background="?android:attr/listDivider"
-                app:layout_constraintEnd_toEndOf="@+id/divider2"
-                app:layout_constraintStart_toStartOf="@+id/divider2"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:id="@+id/divider2"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/divider"
-                tools:layout_editor_absoluteX="-32dp" />
-
-            <pl.pawelkleczkowski.customgauge.CustomGauge
-                android:id="@+id/imcGauge"
-                android:layout_width="84dp"
-                android:layout_height="70dp"
-                android:layout_centerHorizontal="true"
-                android:paddingLeft="20dp"
-                android:paddingTop="20dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="20dp"
-                app:gaugeEndValue="100"
-                app:gaugePointEndColor="@android:color/holo_green_light"
-                app:gaugePointSize="10"
-                app:gaugePointStartColor="@color/teal_200"
-                app:gaugeStartAngle="135"
-                app:gaugeStartValue="0"
-                app:gaugeStrokeCap="ROUND"
-                app:gaugeStrokeColor="@color/black"
-                app:gaugeStrokeWidth="10dp"
-                app:gaugeSweepAngle="270"
-                app:layout_constraintBottom_toBottomOf="@+id/divider"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/divider"
-                app:layout_constraintTop_toBottomOf="@+id/IMCIconeImageView" />
-
-            <TextView
-                android:id="@+id/GaugeTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/imc"
-                app:layout_constraintBottom_toBottomOf="@+id/imcGauge"
-                app:layout_constraintEnd_toEndOf="@+id/imcGauge"
-                app:layout_constraintStart_toStartOf="@+id/imcGauge"
-                app:layout_constraintTop_toTopOf="@+id/imcGauge" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
         <Button
             android:id="@+id/MenuButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="#FF5722"
             android:text="@string/menu"
-            app:layout_constraintEnd_toStartOf="@+id/TitleImageView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/LogoutButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="266dp"
+            android:layout_height="75dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="#FF5722"
             android:text="@string/log_out"
+            android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/PodomètreImageView"
+            android:layout_width="85dp"
+            android:layout_height="71dp"
+            android:layout_marginTop="76dp"
+            android:contentDescription="@string/iconepodometre"
+            android:src="@drawable/podom_tre_ic_ne"
+            app:layout_constraintEnd_toStartOf="@+id/PodometreTextView"
+            app:layout_constraintHorizontal_bias="0.444"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+            app:layout_constraintTop_toBottomOf="@+id/WelcomeMessageTextView" />
+
+        <TextView
+            android:id="@+id/PodometreTextView"
+            android:layout_width="131dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="100dp"
+            android:text="@string/nombre_de_pas"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loginUsername" />
+
+        <TextView
+            android:id="@+id/NombreDePasTextView"
+            android:layout_width="38dp"
+            android:layout_height="30dp"
+            android:background="#F6F5F5"
+            android:text="@string/_5"
+            android:textAlignment="center"
+            android:textColor="#FF0000"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@+id/PodometreTextView"
+            app:layout_constraintStart_toEndOf="@+id/PodometreTextView"
+            app:layout_constraintTop_toTopOf="@+id/PodometreTextView" />
+
+        <TextView
+            android:id="@+id/GaugeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="@string/imc"
+            app:layout_constraintEnd_toEndOf="@+id/imcGauge"
+            app:layout_constraintStart_toStartOf="@+id/imcGauge"
+            app:layout_constraintTop_toTopOf="@+id/imcGauge" />
+
+        <pl.pawelkleczkowski.customgauge.CustomGauge
+            android:id="@+id/imcGauge"
+            android:layout_width="84dp"
+            android:layout_height="70dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="52dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="20dp"
+            app:gaugeEndValue="100"
+            app:gaugePointEndColor="@android:color/holo_green_light"
+            app:gaugePointSize="10"
+            app:gaugePointStartColor="@color/teal_200"
+            app:gaugeStartAngle="135"
+            app:gaugeStartValue="0"
+            app:gaugeStrokeCap="ROUND"
+            app:gaugeStrokeColor="@color/black"
+            app:gaugeStrokeWidth="10dp"
+            app:gaugeSweepAngle="270"
+            app:layout_constraintStart_toEndOf="@+id/IMC_text_textView"
+            app:layout_constraintTop_toBottomOf="@+id/PodometreTextView" />
+
+        <TextView
+            android:id="@+id/IMC_text_textView"
+            android:layout_width="62dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="136dp"
+            android:text="@string/imc"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imcGauge"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imcGauge"
+            app:layout_constraintVertical_bias="0.394" />
+
+        <ImageView
+            android:id="@+id/ObjectifIconeImageView"
+            android:layout_width="92dp"
+            android:layout_height="76dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginBottom="56dp"
+            android:contentDescription="@string/objectificone"
+            android:src="@drawable/objectif"
+            app:layout_constraintBottom_toTopOf="@+id/LogoutButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/IMC_text_textView" />
+
+        <TextView
+            android:id="@+id/objectif_Text_textView"
+            android:layout_width="230dp"
+            android:layout_height="82dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="28dp"
+            android:text="@string/obj"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/ObjectifIconeImageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ObjectifIconeImageView"
+            app:layout_constraintTop_toTopOf="@+id/ObjectifIconeImageView" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="288dp"
+            android:layout_height="101dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="10dp"
+            android:contentDescription="@string/todo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView4"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/nomapp" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="68dp"
+            android:layout_height="90dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="48dp"
+            android:contentDescription="@string/todo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/MenuButton"
+            app:srcCompat="@drawable/logoapp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
