@@ -14,8 +14,6 @@ public class User {
     private String username;
     @ColumnInfo(name = "password")
     private String password;
-    @ColumnInfo(name = "steps")
-    private String steps;
     @ColumnInfo
     private double height;
     @ColumnInfo
@@ -43,14 +41,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getSteps() {
-        return steps;
-    }
-
-    public void setSteps(String steps) {
-        this.steps = steps;
     }
 
     public double getHeight() {
