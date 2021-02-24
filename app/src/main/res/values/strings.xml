@@ -1,3 +1,48 @@
 <resources>
     <string name="app_name">Projet_Android</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="superbibi">SuperBibi</string>
+    <string name="logo">logo</string>
+    <string name="title">title</string>
+    <string name="iconepodometre">iconePodometre</string>
+    <string name="nombre_de_pas">Nombre de pas :</string>
+    <string name="_5">5</string>
+    <string name="imcicone">IMCIcone</string>
+    <string name="imcgraph">IMCGraph</string>
+    <string name="objectificone">ObjectifIcone</string>
+    <string name="objectifs">Objectifs :</string>
+    <string name="menu">Menu</string>
+    <string name="option_1">Option 1</string>
+    <string name="settings">Settings</string>
+    <string name="settingsicone">settingsIcone</string>
+    <string name="go_to_dark_theme">Go to dark theme</string>
+    <string name="splashscreenlogo">splashScreenLogo</string>
+    <string name="splashscreentitle">splashScreenTitle</string>
+    <string name="title_activity_splash_screen">SplashScreen</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="imc">IMC</string>
+    <string name="enter_username">Enter username</string>
+    <string name="enter_password">Enter password</string>
+    <string name="enter_weight">enter weight</string>
+    <string name="enter_height">enter height</string>
+    <string name="welcome">Welcome</string>
+    <string name="logout">Logout</string>
+    <string name="log_out">log out</string>
+    <string name="register">Register</string>
+    <string name="already_register_log_in_here">Already Register ? Log in here</string>
+    <string name="log">Log</string>
+    <string name="new_here_create_an_account">New Here ? Create an account</string>
 </resources>
