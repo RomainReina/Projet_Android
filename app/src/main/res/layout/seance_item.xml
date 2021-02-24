@@ -22,10 +22,10 @@
 
     <TextView
         android:id="@+id/seance"
-        android:layout_width="162dp"
-        android:layout_height="26dp"
+        android:layout_width="300dp"
+        android:layout_height="30dp"
         android:layout_marginTop="24dp"
-        android:background="#F44336"
+        android:background="#FF5722"
         android:gravity="center"
         android:text="@string/seancename"
         android:textColor="#FFFFFF"
