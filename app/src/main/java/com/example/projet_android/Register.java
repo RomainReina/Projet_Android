@@ -44,25 +44,6 @@ public class Register extends Activity implements View.OnClickListener {
 
 
         }
-        /*public boolean CheckUsername()
-        {
-            String input = userName.getText().toString();
-            if(input.isEmpty())
-            {
-                userName.setError("Field cannot be empty");
-                return false;
-            }
-            else if (usernames.contains(input))
-            {
-                userName.setError("Username is already taken");
-                return false;
-            }
-            else
-                {
-                    userName.setError(null);
-                    return true;
-                }
-        }*/
 
         public boolean Checkpassword()
         {
@@ -138,12 +119,11 @@ public class Register extends Activity implements View.OnClickListener {
             String heightText = height.getText().toString();
             UserDatabase db = Room.databaseBuilder(this, UserDatabase.class, "UserDatabase.db").build();
 
-
-            if (Checkpassword() && CheckWeight() && CheckHeight()){
-                if(userNameText.isEmpty()){
-                    userName.setError("Ce champ ne peut pas être vide");
-                }
-                else{
+            if(userNameText.isEmpty()){
+                userName.setError("Ce champ ne peut pas être vide");
+            }
+            else{
+                if (Checkpassword() && CheckWeight() && CheckHeight()){
                     executor.execute(()->
                     {
                         if(db.userDAO().retrieveUserInfo(userNameText)==null){
@@ -167,9 +147,9 @@ public class Register extends Activity implements View.OnClickListener {
 
                     });
 
-                }
-                }
 
+                }
+            }
             }
 
 
