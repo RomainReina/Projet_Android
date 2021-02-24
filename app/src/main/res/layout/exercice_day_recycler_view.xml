@@ -10,7 +10,7 @@
         android:id="@+id/dayNum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:text="@string/numday"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,8 +18,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/exoDayList"
-        android:layout_width="360dp"
-        android:layout_height="680dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
