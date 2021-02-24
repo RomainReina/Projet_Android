@@ -25,6 +25,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        setTheme(R.style.Theme_Design_Light_NoActionBar);
         userName = findViewById(R.id.loginUsername);
         password = findViewById(R.id.loginPassword);
         Button button = findViewById(R.id.Login);

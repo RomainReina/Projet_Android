@@ -31,10 +31,8 @@ public class SeanceItemActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(R.style.Theme_AppCompat_Light_NoActionBar);
         setContentView(R.layout.seance_item);
         Intent intent = getIntent();
-        TextView seanceView= (TextView) findViewById(R.id.seance);
         String URL = "https://raw.githubusercontent.com/julianshapiro/julian.com/master/muscle/workout.json";
 
         dayListRecyclerView = findViewById(R.id.daysList);
@@ -46,9 +44,9 @@ public class SeanceItemActivity extends AppCompatActivity {
             {
                 String seanceName= extras.getString("SeanceName");
                 int seanceId=extras.getInt("SeanceId");
-                seanceView.setText(seanceName);
                 adapter= new DaysAdapter(URL,getBaseContext(),listener,seanceId);
                 adapter.notifyDataSetChanged();
+                setTitle(seanceName);
 
             }
         }

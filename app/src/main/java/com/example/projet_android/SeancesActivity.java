@@ -28,6 +28,7 @@ public class SeancesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Séances");
         setContentView(R.layout.activity_seances);
         mRecyclerView = findViewById(R.id.seanceList);
 
