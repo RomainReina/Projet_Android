@@ -39,7 +39,6 @@
             android:name=".SeancesActivity"
             android:label="SeancesActivity">
         </activity>
-        <activity android:name=".Settings" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Register" />
         <activity android:name=".Login"></activity>

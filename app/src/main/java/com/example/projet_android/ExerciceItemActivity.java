@@ -19,7 +19,6 @@ public class ExerciceItemActivity extends AppCompatActivity {
         setTheme(R.style.Theme_AppCompat_Light_NoActionBar);
         setContentView(R.layout.exercice_item);
         Intent intent = getIntent();
-        TextView nameView = (TextView) findViewById(R.id.exerciceName);
         WebView webView = (WebView) findViewById(R.id.webView);
 
 
@@ -28,9 +27,7 @@ public class ExerciceItemActivity extends AppCompatActivity {
             Bundle extras =intent.getExtras();
             if(extras!=null)
             {
-                String exoName= extras.getString("Name");
                 String exoVideo= extras.getString("Video");
-                nameView.setText(exoName);
                 WebSettings webSettings = webView.getSettings();
                 webSettings.setJavaScriptEnabled(true);
 

@@ -76,9 +76,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     @Override
     public boolean onMenuItemClick(MenuItem item) {                 // on gére les actions à effectuer en fonction de la section cliquée
         switch (item.getItemId()) {
-            case R.id.Settings:
-                startActivity(new Intent(this,Settings.class));
-                return true;
             case R.id.Exercices:
                 startActivity(new Intent(this, ExerciceActivity.class));
                 return true;
