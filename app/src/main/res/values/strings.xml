@@ -27,6 +27,7 @@
     <string name="previous">Previous</string>
 
     <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="videoexplication">Video explicative</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="imc">IMC</string>
     <string name="enter_username">Enter username</string>
