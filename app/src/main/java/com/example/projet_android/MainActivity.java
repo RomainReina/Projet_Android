@@ -5,13 +5,11 @@ import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -81,8 +79,11 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             case R.id.Settings:
                 startActivity(new Intent(this,Settings.class));
                 return true;
-            case R.id.option1:
-                startActivity(new Intent(this, Register.class));
+            case R.id.Exercices:
+                startActivity(new Intent(this, ExerciceActivity.class));
+                return true;
+            case R.id.Séances:
+                startActivity(new Intent(this, SeancesActivity.class));
                 return true;
             default:
                 return false;
