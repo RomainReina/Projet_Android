@@ -14,4 +14,6 @@
     <string name="fond_account">fond_account</string>
     <string name="logo_image">logo_image</string>
     <string name="text_account">text_account</string>
+    <string name="enregistrer">Enregistrer</string>
+    <string name="name">Name</string>
 </resources>
