@@ -7,10 +7,4 @@
     <item
         android:id="@+id/Séances"
         android:title="@string/seances" />
-    <item
-        android:id="@+id/Settings"
-        android:checkable="false"
-        android:icon="@drawable/logo"
-        android:iconTint="@color/purple_200"
-        android:title="@string/settings" />
 </menu>
