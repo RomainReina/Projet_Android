@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:drawable/screen_background_light_transparent"
+    android:background="@color/bleu_fond"
     tools:context=".ExercicesListFragment">
 
     <TextView
@@ -45,7 +45,8 @@
         android:id="@+id/viewExo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="28dp"
+        android:backgroundTint="#FF5722"
         android:text="@string/voir_l_exercice"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
