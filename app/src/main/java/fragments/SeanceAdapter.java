@@ -33,17 +33,14 @@ import classes.Seance;
 public class SeanceAdapter extends RecyclerView.Adapter<SeanceAdapter.ViewHolder>{
 
     private String mUrl;
-    public ArrayList<Seance> mSeances=new ArrayList<>();
-    private Context mContext;
+    public ArrayList<Seance> mSeances;
     private RecyclerViewClickListener mListener;
 
     public SeanceAdapter(String url, RecyclerViewClickListener listener,ArrayList<Seance> seances) {
 
         mUrl = url;
-        //mContext = context;
         mListener = listener;
         mSeances=seances;
-        //recupSeances(url);
     }
 
     @Override
@@ -91,32 +88,5 @@ public class SeanceAdapter extends RecyclerView.Adapter<SeanceAdapter.ViewHolder
         }
     }
 
-    private void recupSeances(String url) {
-        RequestQueue requestQueue = Volley.newRequestQueue(mContext);
-        Gson gson = new Gson();
-        JsonObjectRequest objectRequest = new JsonObjectRequest(
-                Request.Method.GET,
-                url,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            Type mSeancesType = new TypeToken<ArrayList<Seance>>() {}.getType();
-                            mSeances=gson.fromJson(String.valueOf(response.getJSONArray("plans")), mSeancesType);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("Rest Response", error.toString());
-                    }
-                });
-
-        requestQueue.add(objectRequest);
-    }
 
 }

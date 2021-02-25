@@ -41,6 +41,7 @@ public class ExerciceActivity extends AppCompatActivity {
     ExerciceAdapter adapter;
     RequestQueue rq;
     ArrayList<Exercice> mExos;
+    String URL = "https://raw.githubusercontent.com/julianshapiro/julian.com/master/muscle/workout.json";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,20 +50,10 @@ public class ExerciceActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.exoList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        String URL = "https://raw.githubusercontent.com/julianshapiro/julian.com/master/muscle/workout.json";
-
         setOnClickListener();
         rq=Volley.newRequestQueue(this);
-        /*adapter= new ExerciceAdapter(URL,getBaseContext(),listener);
-
-        adapter.notifyDataSetChanged();*/
         mExos=new ArrayList<>();
-        /*Log.i("set", String.valueOf(adapter.mExos));
-        mRecyclerView.setAdapter(adapter);*/
-        recupExos(URL);
-
-
-
+        recupExos();
         
     }
     @Override
@@ -107,11 +98,11 @@ public class ExerciceActivity extends AppCompatActivity {
 
         return intent;
     }
-    public void recupExos(String url) {
+    public void recupExos() {
         Gson gson = new Gson();
         JsonObjectRequest objectRequest = new JsonObjectRequest(
                 Request.Method.GET,
-                url,
+                URL,
                 null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -119,11 +110,10 @@ public class ExerciceActivity extends AppCompatActivity {
                         Type mExosType = new TypeToken<ArrayList<Exercice>>() {}.getType();
                         try {
                             mExos = gson.fromJson(String.valueOf(response.getJSONArray("exercises")), mExosType);
-                            //copyExos.addAll(mExos);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        adapter=new ExerciceAdapter(url,listener,mExos);
+                        adapter=new ExerciceAdapter(URL,listener,mExos);
                         mRecyclerView.setAdapter(adapter);
                     }
                 },

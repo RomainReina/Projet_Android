@@ -38,21 +38,17 @@ import classes.Exercice;
 public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
 
     private String mUrl;
-    public List<Day> mDays=new ArrayList<>();
-    public ArrayList<Exercice> mExos=new ArrayList<>();
-    private int mSeanceId;
-    private Context mContext;
+    public List<Day> mDays;
+    public ArrayList<Exercice> mExos;
     private RecyclerViewClickListener mListener;
 
-    public DaysAdapter(String url,RecyclerViewClickListener listener,ArrayList<Day> days) {
+    public DaysAdapter(String url,RecyclerViewClickListener listener,ArrayList<Day> days,ArrayList<Exercice> exos) {
 
         mUrl = url;
-        //mContext = context;
         mListener = listener;
         mDays=days;
-        //mSeanceId=seanceId;
-        /*recupDays(url);
-        recupExos(url);*/
+        mExos=exos;
+
     }
 
     @Override
@@ -88,7 +84,7 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
             super(view);
             name = view.findViewById(R.id.dayNum);
             dayExoRecyclerView=view.findViewById(R.id.exoDayList);
-            dayExoRecyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL,false));
+            dayExoRecyclerView.setLayoutManager(new LinearLayoutManager(null,LinearLayoutManager.HORIZONTAL,false));
 
 
         }
@@ -99,35 +95,6 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
         }
 
 
-    }
-
-    private void recupDays(String url) {
-        RequestQueue requestQueue = Volley.newRequestQueue(mContext);
-        Gson gson = new Gson();
-        JsonObjectRequest objectRequest = new JsonObjectRequest(
-                Request.Method.GET,
-                url,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            Type mDaysType = new TypeToken<ArrayList<Day>>() {}.getType();
-                            mDays=gson.fromJson(String.valueOf(response.getJSONArray("plans").getJSONObject(mSeanceId).getJSONArray("days")), mDaysType);
-                        }
-                        catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("Rest Response", error.toString());
-                    }
-                });
-
-        requestQueue.add(objectRequest);
     }
 
 

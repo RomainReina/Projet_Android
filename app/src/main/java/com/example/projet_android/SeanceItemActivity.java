@@ -32,6 +32,7 @@ import java.util.List;
 import classes.Day;
 import classes.Exercice;
 import fragments.DaysAdapter;
+import fragments.ExerciceAdapter;
 import fragments.ExoDayAdapter;
 import fragments.SeanceAdapter;
 
@@ -42,10 +43,10 @@ public class SeanceItemActivity extends AppCompatActivity {
     RecyclerView dayExoRecyclerView;
     private DaysAdapter.RecyclerViewClickListener listener;
     DaysAdapter dayAdapter;
-    ExoDayAdapter exoDayAdapter;
-    public ArrayList<Day> mDays;
+    ArrayList<Day> mDays;
+    ArrayList<Exercice> mExos;
     RequestQueue rq;
-
+    String URL = "https://raw.githubusercontent.com/julianshapiro/julian.com/master/muscle/workout.json";
 
 
     @Override
@@ -53,8 +54,6 @@ public class SeanceItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seance_item);
         Intent intent = getIntent();
-        String URL = "https://raw.githubusercontent.com/julianshapiro/julian.com/master/muscle/workout.json";
-
         dayListRecyclerView = findViewById(R.id.daysList);
         rq=Volley.newRequestQueue(this);
         mDays=new ArrayList<>();
@@ -65,14 +64,12 @@ public class SeanceItemActivity extends AppCompatActivity {
             {
                 String seanceName= extras.getString("SeanceName");
                 int seanceId=extras.getInt("SeanceId");
-                /*adapter= new DaysAdapter(URL,getBaseContext(),listener,seanceId);
-                adapter.notifyDataSetChanged();*/
                 setTitle(seanceName);
-                recupDays(URL,seanceId);
+                recupExos();
+                recupDays(seanceId);
 
             }
         }
-        //dayListRecyclerView.setAdapter(adapter);
 
 
 
@@ -80,11 +77,11 @@ public class SeanceItemActivity extends AppCompatActivity {
 
         
     }
-    private void recupDays(String url,int seanceId) {
+    private void recupDays(int seanceId) {
         Gson gson = new Gson();
         JsonObjectRequest objectRequest = new JsonObjectRequest(
                 Request.Method.GET,
-                url,
+                URL,
                 null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -96,8 +93,35 @@ public class SeanceItemActivity extends AppCompatActivity {
                         catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        dayAdapter=new DaysAdapter(url,listener,mDays);
+                        dayAdapter=new DaysAdapter(URL,listener,mDays,mExos);
                         dayListRecyclerView.setAdapter(dayAdapter);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Rest Response", error.toString());
+                    }
+                });
+
+        rq.add(objectRequest);
+    }
+
+    public void recupExos() {
+        Gson gson = new Gson();
+        JsonObjectRequest objectRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                URL,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Type mExosType = new TypeToken<ArrayList<Exercice>>() {}.getType();
+                        try {
+                            mExos = gson.fromJson(String.valueOf(response.getJSONArray("exercises")), mExosType);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 },
                 new Response.ErrorListener() {

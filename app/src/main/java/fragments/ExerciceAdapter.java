@@ -37,9 +37,8 @@ import classes.Exercice;
 public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHolder> implements Filterable {
 
     private String mUrl;
-    public ArrayList<Exercice> copyExos=new ArrayList<>();
-    public ArrayList<Exercice> mExos = new ArrayList<>();
-    private Context mContext;
+    public ArrayList<Exercice> copyExos;
+    public ArrayList<Exercice> mExos;
     private RecyclerViewClickListener mListener;
 
     public ExerciceAdapter(String url, RecyclerViewClickListener listener, ArrayList<Exercice> exos) {
@@ -47,9 +46,7 @@ public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHo
         mUrl = url;
         mExos=exos;
         copyExos=exos;
-        //mContext=context;
         mListener=listener;
-        //recupExos(url);
     }
 
     @Override
@@ -119,8 +116,8 @@ public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHo
 
         public ViewHolder(View view) {
             super(view);
-            name = (TextView) view.findViewById(com.example.projet_android.R.id.exoName);
-            view.setOnClickListener((View.OnClickListener) this);
+            name = view.findViewById(com.example.projet_android.R.id.exoName);
+            view.setOnClickListener(this);
 
         }
 
@@ -135,32 +132,4 @@ public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHo
         }
     }
 
-    public void recupExos(String url) {
-        RequestQueue requestQueue = Volley.newRequestQueue(mContext);
-        Gson gson = new Gson();
-        JsonObjectRequest objectRequest = new JsonObjectRequest(
-                Request.Method.GET,
-                url,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Type mExosType = new TypeToken<ArrayList<Exercice>>() {}.getType();
-                        try {
-                            mExos = gson.fromJson(String.valueOf(response.getJSONArray("exercises")), mExosType);
-                            copyExos.addAll(mExos);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("Rest Response", error.toString());
-                    }
-                });
-
-        requestQueue.add(objectRequest);
-    }
 }

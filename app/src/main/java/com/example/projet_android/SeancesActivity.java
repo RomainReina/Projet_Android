@@ -43,6 +43,7 @@ public class SeancesActivity extends AppCompatActivity {
     SeanceAdapter adapter;
     ArrayList<Seance> mSeances;
     RequestQueue rq;
+    String URL = "https://raw.githubusercontent.com/julianshapiro/julian.com/master/muscle/workout.json";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,15 +52,11 @@ public class SeancesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_seances);
         mRecyclerView = findViewById(R.id.seanceList);
 
-        String URL = "https://raw.githubusercontent.com/julianshapiro/julian.com/master/muscle/workout.json";
-
         setOnClickListener();
         mSeances=new ArrayList<>();
         rq=Volley.newRequestQueue(this);
-        //adapter= new SeanceAdapter(URL,getBaseContext(),listener);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //mRecyclerView.setAdapter(adapter);
-        recupSeances(URL);
+        recupSeances();
 
         
     }
@@ -86,11 +83,11 @@ public class SeancesActivity extends AppCompatActivity {
         return intent;
     }
 
-    private void recupSeances(String url) {
+    private void recupSeances() {
         Gson gson = new Gson();
         JsonObjectRequest objectRequest = new JsonObjectRequest(
                 Request.Method.GET,
-                url,
+                URL,
                 null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -101,7 +98,7 @@ public class SeancesActivity extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        adapter=new SeanceAdapter(url,listener,mSeances);
+                        adapter=new SeanceAdapter(URL,listener,mSeances);
                         mRecyclerView.setAdapter(adapter);
                     }
                 },
