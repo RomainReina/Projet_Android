@@ -17,10 +17,6 @@ import java.util.concurrent.Executors;
 import pl.pawelkleczkowski.customgauge.CustomGauge;
 
 public class HomeActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener, View.OnClickListener {
-
-    //TODO esthétisme page d'accueil
-    //TODO d'abord page login puis redirection si nécessaire vers register
-    //TODO CComparer les usernames dans la bdd pour register et login
     
 
     Executor executor = Executors.newSingleThreadExecutor();
