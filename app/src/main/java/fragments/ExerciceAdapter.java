@@ -24,6 +24,7 @@ import com.google.gson.reflect.TypeToken;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,12 +42,14 @@ public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHo
     private Context mContext;
     private RecyclerViewClickListener mListener;
 
-    public ExerciceAdapter(String url, Context context, RecyclerViewClickListener listener) {
+    public ExerciceAdapter(String url, RecyclerViewClickListener listener, ArrayList<Exercice> exos) {
 
         mUrl = url;
-        mContext=context;
+        mExos=exos;
+        copyExos=exos;
+        //mContext=context;
         mListener=listener;
-        recupExos(url);
+        //recupExos(url);
     }
 
     @Override

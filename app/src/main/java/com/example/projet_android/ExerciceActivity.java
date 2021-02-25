@@ -14,6 +14,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+
+import classes.Exercice;
 import fragments.ExerciceAdapter;
 
 public class ExerciceActivity extends AppCompatActivity {
@@ -23,22 +39,27 @@ public class ExerciceActivity extends AppCompatActivity {
     private ExerciceAdapter.RecyclerViewClickListener listener;
 
     ExerciceAdapter adapter;
+    RequestQueue rq;
+    ArrayList<Exercice> mExos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercice);
         mRecyclerView = findViewById(R.id.exoList);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         String URL = "https://raw.githubusercontent.com/julianshapiro/julian.com/master/muscle/workout.json";
 
         setOnClickListener();
-        adapter= new ExerciceAdapter(URL,getBaseContext(),listener);
+        rq=Volley.newRequestQueue(this);
+        /*adapter= new ExerciceAdapter(URL,getBaseContext(),listener);
 
-        adapter.notifyDataSetChanged();
-        Log.i("set", String.valueOf(adapter.mExos));
-        mRecyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();*/
+        mExos=new ArrayList<>();
+        /*Log.i("set", String.valueOf(adapter.mExos));
+        mRecyclerView.setAdapter(adapter);*/
+        recupExos(URL);
 
 
 
@@ -85,6 +106,35 @@ public class ExerciceActivity extends AppCompatActivity {
         intent.putExtras(extras);
 
         return intent;
+    }
+    public void recupExos(String url) {
+        Gson gson = new Gson();
+        JsonObjectRequest objectRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Type mExosType = new TypeToken<ArrayList<Exercice>>() {}.getType();
+                        try {
+                            mExos = gson.fromJson(String.valueOf(response.getJSONArray("exercises")), mExosType);
+                            //copyExos.addAll(mExos);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        adapter=new ExerciceAdapter(url,listener,mExos);
+                        mRecyclerView.setAdapter(adapter);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Rest Response", error.toString());
+                    }
+                });
+
+        rq.add(objectRequest);
     }
 
 }
