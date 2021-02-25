@@ -63,4 +63,11 @@
     <string name="todo">TODO</string>
     <string name="obj">-Perdre 50kg \n-Abdos 8 packs \n-Entrainement saitama \n-Faire carrière en bodybuilding</string>
     <string name="entrainement">Entrainement</string>
+    <string name="connexion">Connexion</string>
+    <string name="s_inscire">S\'inscire</string>
+    <string name="mot_de_passe">Mot de passe</string>
+    <string name="pseudo">Pseudo</string>
+    <string name="s_inscrire">S\'inscrire</string>
+    <string name="taille">Taille</string>
+    <string name="poids">Poids</string>
 </resources>

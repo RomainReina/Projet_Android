@@ -21,7 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#AFAFAF"
-            android:hint="@string/enter_username" />
+            android:hint="@string/pseudo"
+            android:textColor="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -39,7 +40,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#AFAFAF"
-            android:hint="@string/enter_password" />
+            android:hint="@string/mot_de_passe"
+            android:textColor="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -48,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:backgroundTint="#FF5722"
-        android:text="@string/log"
+        android:text="@string/connexion"
         app:layout_constraintBottom_toTopOf="@+id/CreateAccountButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -62,7 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="128dp"
         android:backgroundTint="#FF5722"
-        android:text="@string/new_here_create_an_account"
+        android:text="@string/s_inscire"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
