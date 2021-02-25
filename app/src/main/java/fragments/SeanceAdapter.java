@@ -37,13 +37,13 @@ public class SeanceAdapter extends RecyclerView.Adapter<SeanceAdapter.ViewHolder
     private Context mContext;
     private RecyclerViewClickListener mListener;
 
-    public SeanceAdapter(String url, Context context, RecyclerViewClickListener listener) {
+    public SeanceAdapter(String url, RecyclerViewClickListener listener,ArrayList<Seance> seances) {
 
         mUrl = url;
-        mContext = context;
+        //mContext = context;
         mListener = listener;
-        recupSeances(url);
-        notifyDataSetChanged();
+        mSeances=seances;
+        //recupSeances(url);
     }
 
     @Override

@@ -14,6 +14,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+
+import classes.Exercice;
+import classes.Seance;
 import fragments.ExerciceAdapter;
 import fragments.SeanceAdapter;
 
@@ -24,6 +41,8 @@ public class SeancesActivity extends AppCompatActivity {
     private SeanceAdapter.RecyclerViewClickListener listener;
 
     SeanceAdapter adapter;
+    ArrayList<Seance> mSeances;
+    RequestQueue rq;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +54,12 @@ public class SeancesActivity extends AppCompatActivity {
         String URL = "https://raw.githubusercontent.com/julianshapiro/julian.com/master/muscle/workout.json";
 
         setOnClickListener();
-        adapter= new SeanceAdapter(URL,getBaseContext(),listener);
-        adapter.notifyDataSetChanged();
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
-        mRecyclerView.setAdapter(adapter);
-
+        mSeances=new ArrayList<>();
+        rq=Volley.newRequestQueue(this);
+        //adapter= new SeanceAdapter(URL,getBaseContext(),listener);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //mRecyclerView.setAdapter(adapter);
+        recupSeances(URL);
 
         
     }
@@ -64,6 +84,35 @@ public class SeancesActivity extends AppCompatActivity {
         extras.putInt("SeanceId",seanceId);
         intent.putExtras(extras);
         return intent;
+    }
+
+    private void recupSeances(String url) {
+        Gson gson = new Gson();
+        JsonObjectRequest objectRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            Type mSeancesType = new TypeToken<ArrayList<Seance>>() {}.getType();
+                            mSeances=gson.fromJson(String.valueOf(response.getJSONArray("plans")), mSeancesType);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        adapter=new SeanceAdapter(url,listener,mSeances);
+                        mRecyclerView.setAdapter(adapter);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Rest Response", error.toString());
+                    }
+                });
+
+        rq.add(objectRequest);
     }
 
 }
