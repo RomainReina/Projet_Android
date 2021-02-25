@@ -70,4 +70,5 @@
     <string name="s_inscrire">S\'inscrire</string>
     <string name="taille">Taille</string>
     <string name="poids">Poids</string>
+    <string name="d_connexion">Déconnexion</string>
 </resources>
