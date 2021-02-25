@@ -50,12 +50,12 @@ public class Register extends Activity implements View.OnClickListener {
             String input = password.getText().toString();
             if(input.isEmpty())
             {
-                password.setError("Field cannot be empty");
+                password.setError("Ce champ ne peut pas être vide");
                 return false;
             }
             else if(input.length() < 6)
             {
-                password.setError("Password must contains at least 6 characters");
+                password.setError("Le mot de passe doit contenir au moins 6 caractères");
                 return false;
             }
             else
@@ -70,13 +70,13 @@ public class Register extends Activity implements View.OnClickListener {
             String input = weight.getText().toString();
             if(input.isEmpty())
             {
-                weight.setError("Field cannot be empty");
+                weight.setError("Ce champ ne peut pas être vide");
                 return false;
             }
 
             else if(!input.matches(("[0-9]+")))
             {
-                weight.setError("Weight must be an integer value");
+                weight.setError("Veuillez saisir un nombre");
                 return false;
             }
 
@@ -92,13 +92,13 @@ public class Register extends Activity implements View.OnClickListener {
             String input = height.getText().toString();
             if(input.isEmpty())
             {
-                height.setError("Field cannot be empty");
+                height.setError("Ce champ ne peut pas être vide");
                 return false;
             }
 
             else if(!input.matches(("[0-9]+")))
             {
-                height.setError("Height must be an integer value");
+                height.setError("Veuillez saisir un nombre");
                 return false;
             }
 
