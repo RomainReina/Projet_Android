@@ -44,14 +44,15 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
     private Context mContext;
     private RecyclerViewClickListener mListener;
 
-    public DaysAdapter(String url, Context context, RecyclerViewClickListener listener,int seanceId) {
+    public DaysAdapter(String url,RecyclerViewClickListener listener,ArrayList<Day> days) {
 
         mUrl = url;
-        mContext = context;
+        //mContext = context;
         mListener = listener;
-        mSeanceId=seanceId;
-        recupDays(url);
-        recupExos(url);
+        mDays=days;
+        //mSeanceId=seanceId;
+        /*recupDays(url);
+        recupExos(url);*/
     }
 
     @Override
@@ -64,8 +65,7 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.name.setText("Day "+String.valueOf(mDays.get(position).getId()+1));
-        ExoDayAdapter exoDayAdapter =new ExoDayAdapter(mDays,position,mContext,mUrl,mExos);
-        exoDayAdapter.notifyDataSetChanged();
+        ExoDayAdapter exoDayAdapter =new ExoDayAdapter(mDays,position,mUrl,mExos);
         holder.dayExoRecyclerView.setAdapter(exoDayAdapter);
     }
 
@@ -129,32 +129,6 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
 
         requestQueue.add(objectRequest);
     }
-    private void recupExos(String url) {
-        RequestQueue requestQueue = Volley.newRequestQueue(mContext);
-        Gson gson = new Gson();
-        JsonObjectRequest objectRequest = new JsonObjectRequest(
-                Request.Method.GET,
-                url,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Type mExosType = new TypeToken<ArrayList<Exercice>>() {}.getType();
-                        try {
-                            mExos = gson.fromJson(String.valueOf(response.getJSONArray("exercises")), mExosType);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("Rest Response", error.toString());
-                    }
-                });
 
-        requestQueue.add(objectRequest);
-    }
 
 }

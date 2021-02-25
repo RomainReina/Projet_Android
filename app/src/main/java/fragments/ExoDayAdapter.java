@@ -29,11 +29,9 @@ public class ExoDayAdapter extends RecyclerView.Adapter<ExoDayAdapter.ViewHolder
     private ArrayList<Exercice> mExos=new ArrayList<>();
     private ArrayList<Exercice> copyExos;
     private int mNumDay;
-    private Context mContext;
-    public ExoDayAdapter(List<Day> days, int numDay,Context context, String url,ArrayList<Exercice> exos) {
+    public ExoDayAdapter(List<Day> days, int numDay, String url,ArrayList<Exercice> exos) {
         mDays=days;
         mNumDay=numDay;
-        mContext=context;
         mExos.addAll(mDays.get(numDay).getExos());
         copyExos=exos;
 
