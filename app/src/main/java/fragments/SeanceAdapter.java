@@ -30,7 +30,7 @@ import classes.Seance;
 /**
  * TODO: Replace the implementation with code for your data type.
  */
-public class SeanceAdapter extends RecyclerView.Adapter<SeanceAdapter.ViewHolder>{
+public class SeanceAdapter extends RecyclerView.Adapter<SeanceAdapter.ViewHolder>{ //Même principe que pour l'adapter "Exercice"
 
     private String mUrl;
     public ArrayList<Seance> mSeances;

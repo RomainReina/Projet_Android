@@ -29,7 +29,7 @@ public class ExoDayAdapter extends RecyclerView.Adapter<ExoDayAdapter.ViewHolder
     private ArrayList<Exercice> mExos=new ArrayList<>();
     private ArrayList<Exercice> copyExos;
     private int mNumDay;
-    public ExoDayAdapter(List<Day> days, int numDay, String url,ArrayList<Exercice> exos) {
+    public ExoDayAdapter(List<Day> days, int numDay,ArrayList<Exercice> exos) {
         mDays=days;
         mNumDay=numDay;
         mExos.addAll(mDays.get(numDay).getExos());
@@ -46,7 +46,7 @@ public class ExoDayAdapter extends RecyclerView.Adapter<ExoDayAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Exercice exo=recupExoById(mExos.get(position).getId());
+        Exercice exo=recupExoById(mExos.get(position).getId()); //On récupère l'exercice grâce à son id
         holder.name.setText(exo.getName());
         holder.sets.setText(String.valueOf(mExos.get(position).getSets())+" séries");
         holder.video=exo.getVideo();
@@ -93,7 +93,7 @@ public class ExoDayAdapter extends RecyclerView.Adapter<ExoDayAdapter.ViewHolder
 
     }
 
-    private Exercice recupExoById(int id){
+    private Exercice recupExoById(int id){ //Permet de récupérer le nom de l'exercice grâce à son id (on utilise le 1er constructeur de la classe "Exercice")
         for(int i=0; i<copyExos.size();i++){
             if(copyExos.get(i).getId()==id){
                 return copyExos.get(i);

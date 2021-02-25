@@ -61,8 +61,9 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.name.setText("Day "+String.valueOf(mDays.get(position).getId()+1));
-        ExoDayAdapter exoDayAdapter =new ExoDayAdapter(mDays,position,mUrl,mExos);
-        holder.dayExoRecyclerView.setAdapter(exoDayAdapter);
+        ExoDayAdapter exoDayAdapter =new ExoDayAdapter(mDays,position,mExos); //On crée notre adapter personnalisé pour les exercices des séances (ExoDayAdapter)
+        holder.dayExoRecyclerView.setAdapter(exoDayAdapter); //On crée un nouveau recycler view dans notre recycler view de "days" et on lui donne l'adapter
+        //créé précédemment
     }
 
 
@@ -84,7 +85,8 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
             super(view);
             name = view.findViewById(R.id.dayNum);
             dayExoRecyclerView=view.findViewById(R.id.exoDayList);
-            dayExoRecyclerView.setLayoutManager(new LinearLayoutManager(null,LinearLayoutManager.HORIZONTAL,false));
+            dayExoRecyclerView.setLayoutManager(new LinearLayoutManager(null,LinearLayoutManager.HORIZONTAL,false)); //On précise que ce
+            //recycler view soit disposé à l'horizontal
 
 
         }

@@ -56,7 +56,7 @@ public class SeancesActivity extends AppCompatActivity {
         mSeances=new ArrayList<>();
         rq=Volley.newRequestQueue(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recupSeances();
+        recupSeances(); //On récupère la liste des programmes
 
         
     }
@@ -71,7 +71,7 @@ public class SeancesActivity extends AppCompatActivity {
         };
     }
 
-    private Intent getIntent(int idSeance)
+    private Intent getIntent(int idSeance) //Permet de créer l'intent qui nous sert donc à transmettre les données à une autre activité (grâce à l'id séance)
     {
         Intent intent= new Intent(this, SeanceItemActivity.class);
         Bundle extras = new Bundle();
@@ -83,7 +83,7 @@ public class SeancesActivity extends AppCompatActivity {
         return intent;
     }
 
-    private void recupSeances() {
+    private void recupSeances() { //Même principe que les autres requête réseau mais avec les données des programmes
         Gson gson = new Gson();
         JsonObjectRequest objectRequest = new JsonObjectRequest(
                 Request.Method.GET,
@@ -98,7 +98,7 @@ public class SeancesActivity extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        adapter=new SeanceAdapter(URL,listener,mSeances);
+                        adapter=new SeanceAdapter(URL,listener,mSeances); //On crée notre adapter personnalisé pour les programmes
                         mRecyclerView.setAdapter(adapter);
                     }
                 },

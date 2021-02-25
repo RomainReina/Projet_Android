@@ -40,7 +40,6 @@ public class SeanceItemActivity extends AppCompatActivity {
 
 
     RecyclerView dayListRecyclerView;
-    RecyclerView dayExoRecyclerView;
     private DaysAdapter.RecyclerViewClickListener listener;
     DaysAdapter dayAdapter;
     ArrayList<Day> mDays;
@@ -50,7 +49,7 @@ public class SeanceItemActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) { //Même principe que pour les activités d'exercice et de séance
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seance_item);
         Intent intent = getIntent();
@@ -64,9 +63,10 @@ public class SeanceItemActivity extends AppCompatActivity {
             {
                 String seanceName= extras.getString("SeanceName");
                 int seanceId=extras.getInt("SeanceId");
-                setTitle(seanceName);
-                recupExos();
-                recupDays(seanceId);
+                setTitle(seanceName); //On indique le nom du programme sélectionné dans l'action bar
+                recupExos(); //Comme on utilise ici 2 recyclers view imbriqués (le 2ème est déclaré dans l'adapter "DayExoAdapter"), on effectue l'appel réseau
+                //pour récupérer les exercices dans un premier temps, pour faire la correspondance entre l'id et le nom des exercices par la suite
+                recupDays(seanceId); //On récupère l'ensemble des "days" pour le programme sélectionné
 
             }
         }
@@ -77,7 +77,7 @@ public class SeanceItemActivity extends AppCompatActivity {
 
         
     }
-    private void recupDays(int seanceId) {
+    private void recupDays(int seanceId) { //Même principe que les autres requête réseau mais avec les données des days dans les programmes
         Gson gson = new Gson();
         JsonObjectRequest objectRequest = new JsonObjectRequest(
                 Request.Method.GET,
@@ -89,11 +89,12 @@ public class SeanceItemActivity extends AppCompatActivity {
                         try {
                             Type mDaysType = new TypeToken<ArrayList<Day>>() {}.getType();
                             mDays=gson.fromJson(String.valueOf(response.getJSONArray("plans").getJSONObject(seanceId).getJSONArray("days")), mDaysType);
+                            //Comme pour les exercices, on précise ici que les données récupérées sont stockées en tant qu'instance de "Day"
                         }
                         catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        dayAdapter=new DaysAdapter(URL,listener,mDays,mExos);
+                        dayAdapter=new DaysAdapter(URL,listener,mDays,mExos); //On crée notre adapter personnalisé pour les days
                         dayListRecyclerView.setAdapter(dayAdapter);
                     }
                 },
@@ -107,7 +108,7 @@ public class SeanceItemActivity extends AppCompatActivity {
         rq.add(objectRequest);
     }
 
-    public void recupExos() {
+    public void recupExos() { //Même méthode que pour l'activité "ExerciceActivity"
         Gson gson = new Gson();
         JsonObjectRequest objectRequest = new JsonObjectRequest(
                 Request.Method.GET,

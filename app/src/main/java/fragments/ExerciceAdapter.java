@@ -37,9 +37,10 @@ import classes.Exercice;
 public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHolder> implements Filterable {
 
     private String mUrl;
-    public ArrayList<Exercice> copyExos;
-    public ArrayList<Exercice> mExos;
-    private RecyclerViewClickListener mListener;
+    public ArrayList<Exercice> copyExos; //La variable copyExos va contenir l'ensemble des exercices et ne va jamais être modifiée, elle va servir de référence
+    //à la variable mExos
+    public ArrayList<Exercice> mExos; //La variable mExos contient la liste des exercices qui va s'adapter selon la recherche
+    private RecyclerViewClickListener mListener; //Pour faire en sorte que les éléments soient "cliquables"
 
     public ExerciceAdapter(String url, RecyclerViewClickListener listener, ArrayList<Exercice> exos) {
 
@@ -58,7 +59,7 @@ public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.name.setText(mExos.get(position).getName());
+        holder.name.setText(mExos.get(position).getName()); //Pour remplir le texte de l'élément avec le nom de l'exercice
     }
 
 
@@ -66,26 +67,26 @@ public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHo
     @Override
     public int getItemCount() {
         return mExos.size();
-    }
+    } //Pour définir la taille de la liste avec le nombre d'exercices
 
     @Override
     public Filter getFilter() {
         return exampleFilter;
     }
-    private Filter exampleFilter = new Filter() {
+    private Filter exampleFilter = new Filter() { //On met en place le filtre de recherche d'exercices
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             List<Exercice> filteredList = new ArrayList<>();
-            if (constraint ==null || constraint.length() == 0)
+            if (constraint ==null || constraint.length() == 0) //S'il n'y a pas de recherche d'effectuée, on affiche la liste complète des exercices
             {
                 filteredList.addAll(copyExos);
             }
             else
             {
-                String filterPattern = constraint.toString().toLowerCase().trim();
+                String filterPattern = constraint.toString().toLowerCase().trim(); //On stocke dans la variable filterPattern le texte saisi par l'utilisateur
                 for (Exercice exo : copyExos)
                 {
-                    if (exo.getName().toLowerCase().contains(filterPattern))
+                    if (exo.getName().toLowerCase().contains(filterPattern)) //On affiche les exercices dont le texte saisi est contenu dans le nom de l'exercice
                     {
                         filteredList.add(exo);
                     }
@@ -98,9 +99,10 @@ public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHo
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            mExos.clear();
+            mExos.clear(); //A chaque fois que la recherche est effectuée, on vide la liste mExos et on la remplit avec la liste d'exercices
+            //correspondant à la recherche
             mExos.addAll((List)results.values);
-            notifyDataSetChanged();
+            notifyDataSetChanged(); //Pour actualiser les données
 
 
         }
@@ -129,7 +131,7 @@ public class ExerciceAdapter extends RecyclerView.Adapter<ExerciceAdapter.ViewHo
         @Override
         public void onClick(View v) {
             mListener.onClick(v,getAdapterPosition());
-        }
+        } //Permet de faire en sorte que l'élément sélectionné soit bien celui sur lequel l'utilisateur a cliqué, grâce à la position de l'élément dans l'adapter
     }
 
 }

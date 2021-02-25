@@ -51,19 +51,19 @@ public class ExerciceActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         setOnClickListener();
-        rq=Volley.newRequestQueue(this);
-        mExos=new ArrayList<>();
-        recupExos();
+        rq=Volley.newRequestQueue(this); //On initialise une requête grâce à la librairie Volley
+        mExos=new ArrayList<>(); //On initialise notre liste d'exercices qui va être complétée grâce à la méthode suivante
+        recupExos(); //Dans cette méthode, on exécute la requête réseau pour récupérer nos données
         
     }
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu) { //Ici on crée notre menu qui correspond à notre action bar avec une search view dedans
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
-        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE); //Permet de donner la possibilité à l'utilisateur d'indiquer  qu'il a fini la saisie du texte
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() { //On effectue la recherche et on actualise les données affichées depuis l'adapter
             @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;
@@ -78,7 +78,7 @@ public class ExerciceActivity extends AppCompatActivity {
         return true;
     }
 
-    private void setOnClickListener() {
+    private void setOnClickListener() { //Pour que les éléments de la liste soit "cliquables"
         listener= new ExerciceAdapter.RecyclerViewClickListener() {
             @Override
             public void onClick(View v, int position) {
@@ -88,7 +88,7 @@ public class ExerciceActivity extends AppCompatActivity {
         };
     }
 
-    private Intent getIntent(int idExo)
+    private Intent getIntent(int idExo) //Permet de créer l'intent qui nous sert donc à transmettre les données à une autre activité (grâce à l'id exercice)
     {
         Intent intent= new Intent(this, ExerciceItemActivity.class);
         Bundle extras = new Bundle();
@@ -98,7 +98,7 @@ public class ExerciceActivity extends AppCompatActivity {
 
         return intent;
     }
-    public void recupExos() {
+    public void recupExos() { //Permet d'effectuer la requête, de parser le json pour récupérer l'information souhaitée et de remplir notre liste d'exercices
         Gson gson = new Gson();
         JsonObjectRequest objectRequest = new JsonObjectRequest(
                 Request.Method.GET,
@@ -109,11 +109,12 @@ public class ExerciceActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         Type mExosType = new TypeToken<ArrayList<Exercice>>() {}.getType();
                         try {
-                            mExos = gson.fromJson(String.valueOf(response.getJSONArray("exercises")), mExosType);
+                            mExos = gson.fromJson(String.valueOf(response.getJSONArray("exercises")), mExosType); //On précise que les données récupérées
+                            //soient stockées en tant qu'instance d'un exercice
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        adapter=new ExerciceAdapter(URL,listener,mExos);
+                        adapter=new ExerciceAdapter(URL,listener,mExos); //On crée notre adapter personnalisé d'exercices
                         mRecyclerView.setAdapter(adapter);
                     }
                 },
