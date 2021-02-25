@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashScreen extends AppCompatActivity {
 
-    private static int SPLASH_TIME_OUT = 2000;
+    private static int SPLASH_TIME_OUT = 2000; //Temps de chargement du splash screen en ms
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,15 +20,13 @@ public class SplashScreen extends AppCompatActivity {
 
             @Override
             public void run() {
-                // This method will be executed once the timer is over
-                // Start your app main activity
+
                 Intent i = new Intent(SplashScreen.this, Register.class);
                 startActivity(i);
 
-                // close this activity
                 finish();
             }
-        }, SPLASH_TIME_OUT);
+        }, SPLASH_TIME_OUT); //On affiche le splashscreen pendant la durée déterminée avant de lancer l'activité "Register"
 
     }
 }

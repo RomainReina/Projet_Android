@@ -16,7 +16,7 @@ import java.util.concurrent.Executors;
 
 import pl.pawelkleczkowski.customgauge.CustomGauge;
 
-public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener, View.OnClickListener {
+public class HomeActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener, View.OnClickListener {
 
     //TODO esthétisme page d'accueil
     //TODO d'abord page login puis redirection si nécessaire vers register
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         Button LogoutButton = findViewById(R.id.LogoutButton);
         LogoutButton.setOnClickListener(this);
         TextView stepText = findViewById(R.id.NombreDePasTextView);
-        CustomGauge gauge = findViewById(R.id.imcGauge);
+        CustomGauge gauge = findViewById(R.id.imcGauge); //A été ajouté via repo git + dependencies dans le gradle
         TextView imcTextView = findViewById(R.id.GaugeTextView);
         TextView welcomeTextView = findViewById(R.id.loginUsername);
         UserDatabase db = Room.databaseBuilder(this,UserDatabase.class,"UserDatabase.db").build();
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 @Override
                 public void run() {
                     welcomeTextView.setText(user.getUsername());
-                    stepText.setText("15"); //UI manipulation, forbidden in background thread
+                    stepText.setText("15");
                     imcTextView.setText(String.valueOf(imc));
                     gauge.setValue((int)imc);
                 }
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         });
     }
 
-    public void showPopup (View v) {                                // On crée la pop-up
+    public void showPopup (View v) {  // On crée la pop-up
         PopupMenu popup = new PopupMenu(this, v);
 
         // This activity implements OnMenuItemClickListener

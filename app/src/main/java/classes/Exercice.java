@@ -17,7 +17,8 @@ public class Exercice {
         this.video=video;
     }
 
-    public Exercice(int id, int weight, int sets, String unit){
+    public Exercice(int id, int weight, int sets, String unit){ //Comme pour les classes "Day" et "Seance", on crée un constructeur avec le même nombre de paramètre et la
+        //même nomenclature que celle utilisée dans le json pour le parsing
         this.id=id;
         this.weight=weight;
         this.sets=sets;

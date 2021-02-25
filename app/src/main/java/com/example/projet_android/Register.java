@@ -3,11 +3,9 @@ package com.example.projet_android;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.room.Room;
 
@@ -132,9 +130,9 @@ public class Register extends Activity implements View.OnClickListener {
                             newUser.setPassword(passwordText);
                             newUser.setWeight(Integer.parseInt(weightText));
                             newUser.setHeight(Integer.parseInt(heightText));
-                            db.userDAO().insert(newUser);
+                            db.userDAO().insert(newUser); //On insère le nouvel utilisateur dans la base de données
 
-                            startActivity(new Intent(this,MainActivity.class).putExtra("username",userNameText));
+                            startActivity(new Intent(this, HomeActivity.class).putExtra("username",userNameText));
                         }
                         else{
                             runOnUiThread(new Runnable() {

@@ -5,22 +5,17 @@ import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
     EditText userName,password;
-    Executor executor = Executors.newSingleThreadExecutor();
+    Executor executor = Executors.newSingleThreadExecutor(); //On utilise l'executor pour faire nos requêtes de base de données en arrière-plan
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +37,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         {
             String userNameText = String.valueOf(userName.getText());
             String passwordText = String.valueOf(password.getText());
-            UserDatabase db = Room.databaseBuilder(this, UserDatabase.class, "UserDatabase.db").build();
+            UserDatabase db = Room.databaseBuilder(this, UserDatabase.class, "UserDatabase.db").build(); //On build la base de données
             if(userNameText.isEmpty()){
                 userName.setError("Ce champ ne peut pas être vide");
             }
@@ -52,9 +47,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             else {
                 executor.execute(() ->
                 {
-                    User user = db.userDAO().retrieveUserInfo(userNameText);
+                    User user = db.userDAO().retrieveUserInfo(userNameText);//On utilise la requête définie dans userDAO pour récupérer l'utilisateur par son pseudo
                     if (user == null) {
-                        runOnUiThread(new Runnable() {
+                        runOnUiThread(new Runnable() { //On exécute l'instruction suivante dans le UI Thread car on effectue une action sur une des views
+                            //du UI Thread
                             @Override
                             public void run() {
                                 userName.setError("Ce nom d'utilisateur n'existe pas");
@@ -62,7 +58,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         });
                     } else {
                         if (user.getPassword().equalsIgnoreCase(passwordText)) {
-                            startActivity(new Intent(getBaseContext(), MainActivity.class).putExtra("username", userNameText));
+                            startActivity(new Intent(getBaseContext(), HomeActivity.class).putExtra("username", userNameText)); //On lance l'activité
+                            //home en lui transmettant des informations sur l'utilisateur
                         }
                         else{
                             runOnUiThread(new Runnable() {
